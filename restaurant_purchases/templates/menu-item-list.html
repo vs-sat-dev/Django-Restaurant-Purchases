@@ -1,25 +1,21 @@
 {% extends 'base.html' %}
 
-{% block title %}Ingridients List{% endblock %}
+{% block title %}Menu Items List{% endblock %}
 
 {% block content %}
 
 <table class="table">
 <thead>
     <tr>
-    <th scope="col">Name</th>
-    <th scope="col">Quantity</th>
-    <th scope="col">Unit</th>
-    <th scope="col">Unit Price</th>
+    <th scope="col">Title</th>
+    <th scope="col">Price</th>
     </tr>
 </thead>
 <tbody>
-{% for ingridient in object_list %}
+{% for menu_item in object_list %}
 <tr>
-    <td>{{ ingridient.name }}</td>
-    <td>{{ ingridient.quantity }}</td>
-    <td>{{ ingridient.unit }}</td>
-    <td>{{ ingridient.unit_price }}</td>
+    <td>{{ menu_item.title }}</td>
+    <td>{{ menu_item.price }}</td>
 </tr>
 {% endfor %}
 </tbody>
@@ -45,7 +41,7 @@
 {% endif %}
 
 <br /><br />
-<form action="{% url 'restaurant:ingridient-list' %}" method="POST">
+<form action="{% url 'restaurant:menu-item-list' %}" method="POST">
     {% csrf_token %}
     <div class="row">
         <div class="col-md-2"></div>
@@ -53,13 +49,13 @@
 
         <div class="col-md-8 shadow">
             <br /><br />
-            <center><h3>Add Ingridient</h3></center>
+            <center><h3>Add Menu Item</h3></center>
             <br /><br />
         <div class="row mb-3">
             <div class="col-md-2"></div>
     
-            <div class="col-md-2" align="right"><label class="form-label">Name:</label></div>
-            <div class="col-md-6">{{ form.name }}</div>
+            <div class="col-md-2" align="right"><label class="form-label">Title:</label></div>
+            <div class="col-md-6">{{ form.title }}</div>
     
             <div class="col-md-2"></div>
         </div>
@@ -67,26 +63,8 @@
         <div class="row mb-3">
             <div class="col-md-2"></div>
     
-            <div class="col-md-2" align="right"><label class="form-label">Quantity:</label></div>
-            <div class="col-md-6">{{ form.quantity }}</div>
-    
-            <div class="col-md-2"></div>
-        </div>
-    
-        <div class="row mb-3">
-            <div class="col-md-2"></div>
-    
-            <div class="col-md-2" align="right"><label class="form-label">Unit:</label></div>
-            <div class="col-md-6">{{ form.unit }}</div>
-    
-            <div class="col-md-2"></div>
-        </div>
-    
-        <div class="row mb-3">
-            <div class="col-md-2"></div>
-    
-            <div class="col-md-2" align="right"><label class="form-label">Unit Price:</label></div>
-            <div class="col-md-6">{{ form.unit_price }}</div>
+            <div class="col-md-2" align="right"><label class="form-label">Price:</label></div>
+            <div class="col-md-6">{{ form.price }}</div>
     
             <div class="col-md-2"></div>
         </div>

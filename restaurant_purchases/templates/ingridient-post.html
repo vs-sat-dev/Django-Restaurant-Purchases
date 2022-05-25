@@ -1,47 +1,17 @@
 {% extends 'base.html' %}
 
-{% block title %}Ingridients List{% endblock %}
+{% block title %}Add Ingridient{% endblock %}
 
 {% block content %}
 
-<table class="table">
-<thead>
-    <tr>
-    <th scope="col">Name</th>
-    <th scope="col">Quantity</th>
-    <th scope="col">Unit</th>
-    <th scope="col">Unit Price</th>
-    </tr>
-</thead>
-<tbody>
-{% for ingridient in object_list %}
-<tr>
-    <td>{{ ingridient.name }}</td>
-    <td>{{ ingridient.quantity }}</td>
-    <td>{{ ingridient.unit }}</td>
-    <td>{{ ingridient.unit_price }}</td>
-</tr>
-{% endfor %}
-</tbody>
-</table>
+<style>
+    .errorlist {
+        color: #dc3545;
+    }
+</style>
 
-<br /><br />
-
-{% if is_paginated %}
-  <nav aria-label="Page navigation conatiner"></nav>
-  <ul class="pagination justify-content-center">
-    {% if page_obj.has_previous %}
-    <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; PREV </a></li>
-    {% endif %}
-    {{ page_obj.number }} of 
-    {{ page_obj.paginator.num_pages }}
-    {% if page_obj.has_next %}
-    <li><a href="?page={{ page_obj.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
-
-    {% endif %}
-  </ul>
-  </nav>
-</div>
+{% if errors %}
+    {{ errors }}
 {% endif %}
 
 <br /><br />
