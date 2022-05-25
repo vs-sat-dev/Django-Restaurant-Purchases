@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Sign-In{% endblock %}
+
+{% block content %}
+
+{% if message %}
+    <div class="text-danger">{{ message }}</div>
+{% endif %}
+
+<form action="{% url 'accounts:login' %}" method="POST">
+    {% csrf_token %}
+    {{ form.username }}
+    {{ form.password }}
+    <input type="submit" class="btn btn-primary" value="Login" />
+</form>
+{% endblock %}

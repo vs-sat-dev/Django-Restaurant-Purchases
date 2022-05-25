@@ -1,7 +1,7 @@
 from django import forms
 from django.shortcuts import render
 from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.core.validators import RegexValidator, MinLengthValidator, MaxLengthValidator, EmailValidator
 
 
@@ -36,9 +36,14 @@ class RegisterForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username', 'email', 'password1', 'password2']
-    
-    """def form_valid(self, form):
-        print('ValidForm: ', form)
-        if form['password1'] != form['password2']:
-            render(self.request, 'register.html')
-        return super().form_valid(form)"""
+
+
+class LoginForm(AuthenticationForm):
+    username = forms.CharField(max_length=32,
+                               widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Username'}))
+    password = forms.CharField(label='Password', max_length=32,
+                               widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password'}))
+
+    class Meta:
+        model = User
+        fields = ('username', 'password')

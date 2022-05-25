@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from django.views import View
+from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth import get_user_model
 
-from .forms import RegisterForm
+from .forms import RegisterForm, LoginForm
 
 
 User = get_user_model()
@@ -25,3 +26,14 @@ class RegisterView(View):
         else:
             context = {'errors': form.errors, 'form': form}
             return render(request, 'register.html', context=context)
+
+
+class Login(LoginView):
+    template_name = 'login.html'
+    authentication_form = LoginForm
+    #redirect_field_name = 'future'
+    #redirect_authenticated_user = True
+
+
+class Logout(LogoutView):
+    redirect_field_name = 'login'
