@@ -31,8 +31,8 @@ class RegisterView(View):
 class Login(LoginView):
     template_name = 'login.html'
     authentication_form = LoginForm
-    #redirect_field_name = 'future'
-    #redirect_authenticated_user = True
+    redirect_field_name = 'future'
+    redirect_authenticated_user = True
 
 
 class Logout(LogoutView):

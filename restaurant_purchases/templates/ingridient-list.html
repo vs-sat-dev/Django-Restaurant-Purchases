@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}Sign-In{% endblock %}
+
+{% block content %}
+
+{% for ingridient in object_list %}
+    {{ ingridient.name }}
+{% endfor %}
+
+{% endblock %}

@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'accounts.apps.AccountsConfig',
+    'restaurant.apps.RestaurantConfig',
 ]
 
 MIDDLEWARE = [
@@ -126,3 +127,6 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
+
+LOGIN_REDIRECT_URL = 'restaurant:home'
+LOGOUT_REDIRECT_URL = 'accounts:login'
