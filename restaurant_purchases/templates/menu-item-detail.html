@@ -4,9 +4,9 @@
 
 {% block content %}
 
-{{ object.title }}
+<center><h3>{{ object.title }}</h3></center>
 
-
+{% if recipe_requirements|length > 0 %}
 <table class="table">
 <thead>
     <tr>
@@ -23,6 +23,7 @@
 {% endfor %}
 </tbody>
 </table>
+{% endif %}
 
 <br /><br />
 
