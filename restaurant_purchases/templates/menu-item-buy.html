@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Confirm Purchase{% endblock %}
+
+{% block content %}
+<center><h3>{{ object.title }}</h3></center>
+<center><h3>Price: {{ object.price }}</h3></center>
+<center>
+    <form action="{% url 'restaurant:menu-item-buy' object.id %}" method="POST">
+        {% csrf_token %}
+        <input type="submit" class="btn btn-success" value="Confirm your purchase">
+    </form>
+</center>
+
+{% endblock %}

@@ -1,57 +1,11 @@
 {% extends 'base.html' %}
 
-{% block title %}Ingridients List{% endblock %}
+{% block title %}Update Ingridient{% endblock %}
 
 {% block content %}
 
-{% if object_list|length > 0 %}
-<table class="table">
-<thead>
-    <tr>
-    <th scope="col">Name</th>
-    <th scope="col">Quantity</th>
-    <th scope="col">Unit</th>
-    <th scope="col">Unit Price</th>
-    <th scope="col">Update</th>
-    <th scope="col">Delete</th>
-    </tr>
-</thead>
-<tbody>
-{% for ingridient in object_list %}
-<tr>
-    <td>{{ ingridient.name }}</td>
-    <td>{{ ingridient.quantity }}</td>
-    <td>{{ ingridient.unit }}</td>
-    <td>{{ ingridient.unit_price }}</td>
-    <td><a href="{% url 'restaurant:ingridient-update' ingridient.id %}" class="btn btn-primary">Update</a></td>
-    <td><a href="{% url 'restaurant:ingridient-delete' ingridient.id %}" class="btn btn-danger">Delete</a></td>
-</tr>
-{% endfor %}
-</tbody>
-</table>
-{% endif %}
-
 <br /><br />
-
-{% if is_paginated %}
-  <nav aria-label="Page navigation conatiner"></nav>
-  <ul class="pagination justify-content-center">
-    {% if page_obj.has_previous %}
-    <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; PREV </a></li>
-    {% endif %}
-    {{ page_obj.number }} of 
-    {{ page_obj.paginator.num_pages }}
-    {% if page_obj.has_next %}
-    <li><a href="?page={{ page_obj.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
-
-    {% endif %}
-  </ul>
-  </nav>
-</div>
-{% endif %}
-
-<br /><br />
-<form action="{% url 'restaurant:ingridient-list' %}" method="POST">
+<form action="{% url 'restaurant:ingridient-update' object.id %}" method="POST">
     {% csrf_token %}
     <div class="row">
         <div class="col-md-2"></div>
@@ -59,7 +13,7 @@
 
         <div class="col-md-8 shadow">
             <br /><br />
-            <center><h3>Add Ingridient</h3></center>
+            <center><h3>Update Ingridient</h3></center>
             <br /><br />
         <div class="row mb-3">
             <div class="col-md-2"></div>
@@ -101,7 +55,7 @@
             <div class="col-md-2"></div>
     
             <div class="col-md-2" align="right"></div>
-            <div class="col-md-6"><center><input type="submit" class="btn btn-primary" value="Create Ingridient" /></center></div>
+            <div class="col-md-6"><center><input type="submit" class="btn btn-primary" value="Update Ingridient" /></center></div>
     
             <div class="col-md-2"></div>
         </div>

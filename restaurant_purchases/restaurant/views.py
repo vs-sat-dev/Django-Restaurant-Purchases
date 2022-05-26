@@ -1,8 +1,8 @@
-from django.shortcuts import render, redirect
-from django.views.generic import ListView, DetailView
+from django.shortcuts import render, redirect, get_object_or_404
+from django.views.generic import ListView, DetailView, UpdateView
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from braces.views import SelectRelatedMixin
+from django.urls import reverse
 
 from .models import Ingridient, MenuItem, RecipeRequirement, Purchase
 from .forms import IngridientForm, MenuItemForm, RecipeRequirementForm
@@ -101,3 +101,47 @@ class RecipeRequirementList(ListView):
             context = {'errors': form.errors, 'form': form}
             return render(request, 'recipe-requirement-post.html', context=context)
 
+
+@method_decorator(login_required, name='dispatch')
+class MenuItemBuy(DetailView):
+    model = MenuItem
+    template_name = 'menu-item-buy.html'
+
+    def post(self, request, **kwargs):
+        menu_item = get_object_or_404(MenuItem, pk=kwargs['pk'])
+        if menu_item is not None:
+            Purchase.objects.create(menu_item=menu_item)
+        
+        return redirect('restaurant:menu-item-list')
+
+
+@method_decorator(login_required, name='dispatch')
+class PurchaseList(ListView):
+    model = Purchase
+    paginate_by = 3
+    template_name = 'purchase-list.html'
+
+
+@method_decorator(login_required, name='dispatch')
+class IngridientUpdate(UpdateView):
+    template_name = 'ingridient-update.html'
+    form_class = IngridientForm
+    model = Ingridient
+    
+    def get_success_url(self):
+        view_name = 'update_mymodel'
+        # No need for reverse_lazy here, because it's called inside the method
+        return reverse('restaurant:ingridient-list')
+
+
+@method_decorator(login_required, name='dispatch')
+class IngridientDelete(DetailView):
+    model = Ingridient
+    template_name = 'ingridient-delete.html'
+    
+    def post(self, request, *args, **kwargs):
+        print('KWARGS: ', self.kwargs)
+        ingridient = Ingridient.objects.get(pk=self.kwargs['pk'])
+        if ingridient is not None:
+            ingridient.delete()
+        return redirect('restaurant:ingridient-list')
