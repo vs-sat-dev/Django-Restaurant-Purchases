@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block title %}Recipe Requirement List{% endblock %}
+
+{% block content %}
+
+{{ object.title }}
+
+
+<table class="table">
+<thead>
+    <tr>
+    <th scope="col">Ingridient</th>
+    <th scope="col">Quantity</th>
+    </tr>
+</thead>
+<tbody>
+    {% for recipe in recipe_requirements %}
+<tr>
+    <td>{{ recipe.name }}</td>
+    <td>{{ recipe.quantity }}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+
+<br /><br />
+
+<form action="{% url 'restaurant:menu-item-detail' object.id %}" method="POST">
+    {% csrf_token %}
+    <div class="row">
+        <div class="col-md-2"></div>
+
+
+        <div class="col-md-8 shadow">
+            <br /><br />
+            <center><h3>Add Recipe Requirement</h3></center>
+            <br /><br />
+
+            <div class="row mb-3">
+                <div class="col-md-2"></div>
+        
+                <div class="col-md-2" align="right"><label class="form-label">Menu Item:</label></div>
+                <div class="col-md-6">{{ form.menu_item }}</div>
+        
+                <div class="col-md-2"></div>
+            </div>
+
+        <div class="row mb-3">
+            <div class="col-md-2"></div>
+    
+            <div class="col-md-2" align="right"><label class="form-label">Ingridient:</label></div>
+            <div class="col-md-6">{{ form.ingridient }}</div>
+    
+            <div class="col-md-2"></div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-2"></div>
+    
+            <div class="col-md-2" align="right"><label class="form-label">Quantity:</label></div>
+            <div class="col-md-6">{{ form.quantity }}</div>
+    
+            <div class="col-md-2"></div>
+        </div>
+    
+        <div class="row mb-3">
+            <div class="col-md-2"></div>
+    
+            <div class="col-md-2" align="right"></div>
+            <div class="col-md-6"><center><input type="submit" class="btn btn-primary" value="Create Recipe Requirement" /></center></div>
+    
+            <div class="col-md-2"></div>
+        </div>
+
+
+        <div class="col-md-2"></div>
+        </div>
+
+    </div>
+    
+</form>
+
+<br /><br />
+
+{% endblock %}

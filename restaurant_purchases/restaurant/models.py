@@ -20,8 +20,8 @@ class MenuItem(models.Model):
 
 
 class RecipeRequirement(models.Model):
-    menu_item = models.ForeignKey(MenuItem, on_delete=models.CASCADE)
-    ingridient = models.ForeignKey(Ingridient, on_delete=models.CASCADE)
+    menu_item = models.ForeignKey(MenuItem, related_name='recipe_requirements', on_delete=models.CASCADE)
+    ingridient = models.ForeignKey(Ingridient, related_name='recipe_requirements', on_delete=models.CASCADE)
     quantity = models.FloatField()
 
     def __str__(self):

@@ -34,3 +34,24 @@ class MenuItemForm(forms.ModelForm):
     class Meta:
         model = MenuItem
         fields = ['title', 'price']
+
+
+class RecipeRequirementForm(forms.ModelForm):
+    quantity = forms.FloatField(
+        validators=[MinValueValidator(0.001), MaxValueValidator(1000000)],
+        widget=forms.NumberInput(attrs={'class': 'form-control', 'step': '0.1'})
+        )
+    
+    ingridient = forms.ModelChoiceField(
+        queryset=Ingridient.objects.all(),
+        widget=forms.Select(attrs={'class': 'form-control'})
+        )
+    
+    menu_item = forms.ModelChoiceField(
+        queryset=MenuItem.objects.all(),
+        widget=forms.Select(attrs={'class': 'form-control'})
+        )
+
+    class Meta:
+        model = RecipeRequirement
+        fields = ['ingridient', 'menu_item', 'quantity']

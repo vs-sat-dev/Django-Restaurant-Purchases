@@ -1,21 +1,23 @@
 {% extends 'base.html' %}
 
-{% block title %}Menu Items List{% endblock %}
+{% block title %}Recipe Requirement List{% endblock %}
 
 {% block content %}
 
 <table class="table">
 <thead>
     <tr>
-    <th scope="col">Title</th>
-    <th scope="col">Price</th>
+    <th scope="col">Menu Item</th>
+    <th scope="col">Ingridient</th>
+    <th scope="col">Quantity</th>
     </tr>
 </thead>
 <tbody>
-{% for menu_item in object_list %}
+{% for recipe_requirement in object_list %}
 <tr>
-    <td>{{ menu_item.title }}</td>
-    <td>{{ menu_item.price }}</td>
+    <td>{{ recipe_requirement.menu_item }}</td>
+    <td>{{ recipe_requirement.ingridient }}</td>
+    <td>{{ recipe_requirement.quantity }}</td>
 </tr>
 {% endfor %}
 </tbody>
@@ -41,7 +43,7 @@
 {% endif %}
 
 <br /><br />
-<form action="{% url 'restaurant:menu-item-list' %}" method="POST">
+<form action="{% url 'restaurant:recipe-requirement-list' %}" method="POST">
     {% csrf_token %}
     <div class="row">
         <div class="col-md-2"></div>
@@ -49,22 +51,32 @@
 
         <div class="col-md-8 shadow">
             <br /><br />
-            <center><h3>Add Menu Item</h3></center>
+            <center><h3>Add Recipe Requirement</h3></center>
             <br /><br />
+
+            <div class="row mb-3">
+                <div class="col-md-2"></div>
+        
+                <div class="col-md-2" align="right"><label class="form-label">Menu Item:</label></div>
+                <div class="col-md-6">{{ form.menu_item }}</div>
+        
+                <div class="col-md-2"></div>
+            </div>
+
         <div class="row mb-3">
             <div class="col-md-2"></div>
     
-            <div class="col-md-2" align="right"><label class="form-label">Title:</label></div>
-            <div class="col-md-6">{{ form.title }}</div>
+            <div class="col-md-2" align="right"><label class="form-label">Ingridient:</label></div>
+            <div class="col-md-6">{{ form.ingridient }}</div>
     
             <div class="col-md-2"></div>
         </div>
-    
+
         <div class="row mb-3">
             <div class="col-md-2"></div>
     
-            <div class="col-md-2" align="right"><label class="form-label">Price:</label></div>
-            <div class="col-md-6">{{ form.price }}</div>
+            <div class="col-md-2" align="right"><label class="form-label">Quantity:</label></div>
+            <div class="col-md-6">{{ form.quantity }}</div>
     
             <div class="col-md-2"></div>
         </div>
@@ -73,7 +85,7 @@
             <div class="col-md-2"></div>
     
             <div class="col-md-2" align="right"></div>
-            <div class="col-md-6"><center><input type="submit" class="btn btn-primary" value="Create Menu Item" /></center></div>
+            <div class="col-md-6"><center><input type="submit" class="btn btn-primary" value="Create Recipe Requirement" /></center></div>
     
             <div class="col-md-2"></div>
         </div>
