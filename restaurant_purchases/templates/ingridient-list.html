@@ -4,6 +4,7 @@
 
 {% block content %}
 
+{% if ingridient|length > 0 %}
 <table class="table">
 <thead>
     <tr>
@@ -24,6 +25,7 @@
 {% endfor %}
 </tbody>
 </table>
+{% endif %}
 
 <br /><br />
 
