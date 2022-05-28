@@ -18,20 +18,40 @@
 <tbody>
     {% for recipe in recipe_requirements %}
 <tr>
-    {% if recipe.quantity <= recipe.ingridient_quantity %}
+    {% if recipe.quantity <= recipe.ingridient.quantity %}
     <td>{{ recipe.name }}</td>
     <td>{{ recipe.quantity }}</td>
     <td>{{ recipe.ingridient_quantity }}</td>
     {% else %}
     <td class="bg-danger">{{ recipe.name }}</td>
     <td class="bg-danger">{{ recipe.quantity }}</td>
-    <td class="bg-danger">{{ recipe.ingridient_quantity }}</td>
+    <td class="bg-danger">{{ recipe.ingridient.quantity }}</td>
     {% endif %}
 </tr>
 {% endfor %}
 </tbody>
 </table>
 {% endif %}
+
+<br /><br />
+
+<table class="table">
+    <thead>
+        <tr>
+        <th scope="col"></th>
+        <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for recipe in recipe_requirements %}
+        <tr>
+            <td class="col-md-6"><div align="right">{{ recipe.ingridient.name }}:</div></td>
+            <td><div align="left">{{ recipe.quantity }} {{ recipe.ingridient.unit }}</div></td>
+        </tr>
+        {% endfor %}
+        
+    </tbody>
+</table>
 
 <br /><br />
 

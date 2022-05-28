@@ -75,7 +75,8 @@ class MenuItemDetail(DetailView):
         for recipe in context['recipe_requirements']:
             ingridient = Ingridient.objects.get(id=recipe['ingridient_id'])
             recipe['name'] = ingridient.name
-            recipe['ingridient_quantity'] = ingridient.quantity
+            #recipe['ingridient_quantity'] = ingridient.quantity
+            recipe['ingridient'] = ingridient
         
         context['form'] = RecipeRequirementForm()
         
