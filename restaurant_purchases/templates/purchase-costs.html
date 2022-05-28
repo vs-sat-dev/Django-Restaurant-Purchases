@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Ingridients List{% endblock %}
+
+{% block content %}
+
+<center><h3>Today Restaurant Purchase Statistics</h3></center>
+
+<table class="table">
+    <thead>
+        <tr>
+        <th scope="col"></th>
+        <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="col-md-6"><div align="right">Revenue:</div></td>
+            <td><div align="left">{{ revenue }}</div></td>
+        </tr>
+
+        <tr>
+            <td class="col-md-6"><div align="right">Costs:</div></td>
+            <td><div align="left">{{ costs }}</div></td>
+        </tr>
+
+        <tr>
+            <td class="col-md-6"><div align="right">Profit:</div></td>
+            <td><div align="left">{{ profit }}</div></td>
+        </tr>
+        
+    </tbody>
+</table>
+
+{% endblock %}

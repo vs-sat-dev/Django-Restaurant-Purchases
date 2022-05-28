@@ -1,8 +1,10 @@
+from re import template
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import ListView, DetailView, UpdateView
+from django.views.generic import ListView, DetailView, UpdateView, View
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.urls import reverse
+from django.utils.timezone import now, timedelta
 
 from .models import Ingridient, MenuItem, RecipeRequirement, Purchase
 from .forms import IngridientForm, MenuItemForm, RecipeRequirementForm
@@ -73,6 +75,7 @@ class MenuItemDetail(DetailView):
         for recipe in context['recipe_requirements']:
             ingridient = Ingridient.objects.get(id=recipe['ingridient_id'])
             recipe['name'] = ingridient.name
+            recipe['ingridient_quantity'] = ingridient.quantity
         
         context['form'] = RecipeRequirementForm()
         
@@ -176,3 +179,28 @@ class IngridientDelete(DetailView):
         if ingridient is not None:
             ingridient.delete()
         return redirect('restaurant:ingridient-list')
+
+
+@method_decorator(login_required, name='dispatch')
+class PurchaseCost(View):
+    context_object_name = 'object'
+    
+    def get(self, request, *args, **kwargs):
+
+        start = now().date()
+        end = start + timedelta(days=1)
+
+        today_purchases = Purchase.objects.filter(timestamp__range=(start, end))
+
+        context = {'revenue': 0.0, 'costs': 0.0}
+        for purchase in today_purchases:
+            context['revenue'] += purchase.menu_item.price
+
+            recipe_requirements = RecipeRequirement.objects.filter(menu_item=purchase.menu_item)
+            for recipe in recipe_requirements:
+                context['costs'] += recipe.quantity * recipe.ingridient.unit_price
+        
+        context['costs'] = round(context['costs'], 1)
+        context['profit'] = round(context['revenue'] - context['costs'], 1)
+
+        return render(request, 'purchase-costs.html', context=context)

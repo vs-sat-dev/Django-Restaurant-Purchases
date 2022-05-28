@@ -3,7 +3,7 @@ from django.views.generic import TemplateView
 
 from .views import (
     IngridientList, MenuItemList, MenuItemDetail, RecipeRequirementList, MenuItemBuy,
-    PurchaseList, IngridientUpdate, IngridientDelete
+    PurchaseList, IngridientUpdate, IngridientDelete, PurchaseCost
 )
 
 
@@ -19,4 +19,5 @@ urlpatterns = [
     path('menu-item-buy/<int:pk>/', MenuItemBuy.as_view(), name='menu-item-buy'),
     path('recipe-requirement-list/', RecipeRequirementList.as_view(), name='recipe-requirement-list'),
     path('purchase-list/', PurchaseList.as_view(), name='purchase-list'),
+    path('purchase-cost/', PurchaseCost.as_view(), name='purchase-cost'),
 ]
