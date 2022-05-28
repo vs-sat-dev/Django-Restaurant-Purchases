@@ -37,6 +37,14 @@ class MenuItemList(ListView):
 
     def get_context_data(self, **kwargs):
          context = super().get_context_data(**kwargs)
+         for item in context['object_list']:
+            recipe_requirements = RecipeRequirement.objects.filter(menu_item=item)
+            print('MenuItemContext ', item.title)
+            item.is_buy = True
+            for recipe in recipe_requirements:
+                if recipe.quantity > recipe.ingridient.quantity:
+                    item.is_buy = False
+                print('Ingridient: ', recipe.ingridient.quantity)
          context['form'] = MenuItemForm()
          return context
     
@@ -107,10 +115,33 @@ class MenuItemBuy(DetailView):
     model = MenuItem
     template_name = 'menu-item-buy.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        recipe_requirements = RecipeRequirement.objects.filter(menu_item=context['object'])
+        context['object'].is_buy = True
+        for recipe in recipe_requirements:
+            if recipe.quantity > recipe.ingridient.quantity:
+                context['object'].is_buy = False
+        return context
+
     def post(self, request, **kwargs):
         menu_item = get_object_or_404(MenuItem, pk=kwargs['pk'])
         if menu_item is not None:
-            Purchase.objects.create(menu_item=menu_item)
+
+            recipe_requirements = RecipeRequirement.objects.filter(menu_item=menu_item)
+            is_buy = True
+            ingridient_dict = {'ingridients': [], 'quantities': []}
+            for recipe in recipe_requirements:
+                ingridient_dict['quantities'].append(recipe.quantity)
+                ingridient_dict['ingridients'].append(recipe.ingridient)
+                if recipe.quantity > recipe.ingridient.quantity:
+                    is_buy = False
+
+            if is_buy:
+                Purchase.objects.create(menu_item=menu_item)
+                for i in range(len(ingridient_dict)):
+                    ingridient_dict['ingridients'][i].quantity = round(ingridient_dict['ingridients'][i].quantity - ingridient_dict['quantities'][i], 1)
+                    ingridient_dict['ingridients'][i].save()
         
         return redirect('restaurant:menu-item-list')
 

@@ -18,7 +18,11 @@
 <tr>
     <td><a href="{% url 'restaurant:menu-item-detail' menu_item.id %}">{{ menu_item.title }}</a></td>
     <td>{{ menu_item.price }}</td>
+    {% if menu_item.is_buy %}
     <td><a href="{% url 'restaurant:menu-item-buy' menu_item.id %}" class="btn btn-success">Buy</a></td>
+    {% else %}
+    <td>Not enough ingridients</td>
+    {% endif %}
 </tr>
 {% endfor %}
 </tbody>
