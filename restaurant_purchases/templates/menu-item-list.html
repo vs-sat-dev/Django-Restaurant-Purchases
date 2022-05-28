@@ -8,20 +8,20 @@
 <table class="table">
 <thead>
     <tr>
-    <th scope="col" class="col-md-4">Title</th>
-    <th scope="col" class="col-md-4">Price</th>
-    <th scope="col" class="col-md-4"></th>
+    <th scope="col" class="col-md-4 text-center">Title</th>
+    <th scope="col" class="col-md-4 text-center">Price</th>
+    <th scope="col" class="col-md-4 text-center"></th>
     </tr>
 </thead>
 <tbody>
 {% for menu_item in object_list %}
 <tr>
-    <td><a href="{% url 'restaurant:menu-item-detail' menu_item.id %}">{{ menu_item.title }}</a></td>
-    <td>{{ menu_item.price }}</td>
+    <td class="text-center"><a href="{% url 'restaurant:menu-item-detail' menu_item.id %}">{{ menu_item.title }}</a></td>
+    <td class="text-center">{{ menu_item.price }}</td>
     {% if menu_item.is_buy %}
-    <td><a href="{% url 'restaurant:menu-item-buy' menu_item.id %}" class="btn btn-success">Buy</a></td>
+    <td class="text-center"><a href="{% url 'restaurant:menu-item-buy' menu_item.id %}" class="btn btn-success">Buy</a></td>
     {% else %}
-    <td>Not enough ingridients</td>
+    <td class="text-center">Not enough ingridients</td>
     {% endif %}
 </tr>
 {% endfor %}

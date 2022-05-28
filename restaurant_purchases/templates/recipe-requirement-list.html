@@ -8,17 +8,17 @@
 <table class="table">
 <thead>
     <tr>
-    <th scope="col">Menu Item</th>
-    <th scope="col">Ingridient</th>
-    <th scope="col">Quantity</th>
+    <th scope="col" class="text-center">Menu Item</th>
+    <th scope="col" class="text-center">Ingredient</th>
+    <th scope="col" class="text-center">Quantity</th>
     </tr>
 </thead>
 <tbody>
 {% for recipe_requirement in object_list %}
 <tr>
-    <td>{{ recipe_requirement.menu_item }}</td>
-    <td>{{ recipe_requirement.ingridient }}</td>
-    <td>{{ recipe_requirement.quantity }}</td>
+    <td class="text-center">{{ recipe_requirement.menu_item }}</td>
+    <td class="text-center">{{ recipe_requirement.ingridient }}</td>
+    <td class="text-center">{{ recipe_requirement.quantity }}</td>
 </tr>
 {% endfor %}
 </tbody>

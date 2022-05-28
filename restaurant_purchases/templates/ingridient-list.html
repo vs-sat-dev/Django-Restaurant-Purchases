@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Ingridients List{% endblock %}
+{% block title %}Ingredients List{% endblock %}
 
 {% block content %}
 
@@ -8,23 +8,23 @@
 <table class="table">
 <thead>
     <tr>
-    <th scope="col">Name</th>
-    <th scope="col">Quantity</th>
-    <th scope="col">Unit</th>
-    <th scope="col">Unit Price</th>
-    <th scope="col">Update</th>
-    <th scope="col">Delete</th>
+    <th scope="col" class="text-center">Name</th>
+    <th scope="col" class="text-center">Quantity</th>
+    <th scope="col" class="text-center">Unit</th>
+    <th scope="col" class="text-center">Unit Price</th>
+    <th scope="col" class="text-center">Update</th>
+    <th scope="col" class="text-center">Delete</th>
     </tr>
 </thead>
 <tbody>
 {% for ingridient in object_list %}
 <tr>
-    <td>{{ ingridient.name }}</td>
-    <td>{{ ingridient.quantity }}</td>
-    <td>{{ ingridient.unit }}</td>
-    <td>{{ ingridient.unit_price }}</td>
-    <td><a href="{% url 'restaurant:ingridient-update' ingridient.id %}" class="btn btn-primary">Update</a></td>
-    <td><a href="{% url 'restaurant:ingridient-delete' ingridient.id %}" class="btn btn-danger">Delete</a></td>
+    <td class="text-center">{{ ingridient.name }}</td>
+    <td class="text-center">{{ ingridient.quantity }}</td>
+    <td class="text-center">{{ ingridient.unit }}</td>
+    <td class="text-center">{{ ingridient.unit_price }}</td>
+    <td class="text-center"><a href="{% url 'restaurant:ingridient-update' ingridient.id %}" class="btn btn-primary">Update</a></td>
+    <td class="text-center"><a href="{% url 'restaurant:ingridient-delete' ingridient.id %}" class="btn btn-danger">Delete</a></td>
 </tr>
 {% endfor %}
 </tbody>

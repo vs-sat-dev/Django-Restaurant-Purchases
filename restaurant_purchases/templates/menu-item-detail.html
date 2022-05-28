@@ -10,22 +10,25 @@
 <table class="table">
 <thead>
     <tr>
-    <th scope="col">Ingridient</th>
-    <th scope="col">Quantity</th>
-    <th scope="col">Quantity in the store</th>
+    <th scope="col" class="col-md-3 text-center">Ingredient</th>
+    <th scope="col" class="col-md-3 text-center">Quantity</th>
+    <th scope="col" class="col-md-3 text-center">Quantity in the store</th>
+    <th scope="col" class="col-md-3 text-center">Price per unit</th>
     </tr>
 </thead>
 <tbody>
     {% for recipe in recipe_requirements %}
 <tr>
     {% if recipe.quantity <= recipe.ingridient.quantity %}
-    <td>{{ recipe.name }}</td>
-    <td>{{ recipe.quantity }}</td>
-    <td>{{ recipe.ingridient_quantity }}</td>
+    <td class="text-center">{{ recipe.name }}</td>
+    <td class="text-center">{{ recipe.quantity }}</td>
+    <td class="text-center">{{ recipe.ingridient.quantity }}</td>
+    <td class="text-center">{{ recipe.ingridient.unit_price }}</td>
     {% else %}
-    <td class="bg-danger">{{ recipe.name }}</td>
-    <td class="bg-danger">{{ recipe.quantity }}</td>
-    <td class="bg-danger">{{ recipe.ingridient.quantity }}</td>
+    <td class="bg-danger text-center">{{ recipe.name }}</td>
+    <td class="bg-danger text-center">{{ recipe.quantity }}</td>
+    <td class="bg-danger text-center">{{ recipe.ingridient.quantity }}</td>
+    <td class="bg-danger text-center">{{ recipe.ingridient.unit_price }}</td>
     {% endif %}
 </tr>
 {% endfor %}
@@ -78,7 +81,7 @@
         <div class="row mb-3">
             <div class="col-md-2"></div>
     
-            <div class="col-md-2" align="right"><label class="form-label">Ingridient:</label></div>
+            <div class="col-md-2" align="right"><label class="form-label">Ingredient:</label></div>
             <div class="col-md-6">{{ form.ingridient }}</div>
     
             <div class="col-md-2"></div>
@@ -111,5 +114,19 @@
 </form>
 
 <br /><br />
+
+{{ object.title|json_script:"title" }}
+
+
+<script>
+    var title = JSON.parse(document.getElementById('title').textContent);
+    console.log(title)
+    var obj = document.getElementById("id_menu_item");
+    for(i=0; i<obj.options.length; i++){
+        if(obj.options[i].textContent == title){
+            obj.selectedIndex = i;
+        }
+    }
+</script>
 
 {% endblock %}

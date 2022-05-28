@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth import get_user_model
@@ -22,7 +22,7 @@ class RegisterView(View):
         if form.is_valid():
             user = form.save(commit=False)
             user.save()
-            return render(request, 'login.html')
+            return redirect('accounts:login')
         else:
             context = {'errors': form.errors, 'form': form}
             return render(request, 'register.html', context=context)
