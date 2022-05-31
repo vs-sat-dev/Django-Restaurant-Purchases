@@ -142,7 +142,7 @@ class MenuItemBuy(DetailView):
                     is_buy = False
 
             if is_buy:
-                Purchase.objects.create(menu_item=menu_item)
+                Purchase.objects.create(menu_item=menu_item, price=menu_item.price)
                 for i in range(len(ingridient_dict)):
                     ingridient_dict['ingridients'][i].quantity = round(ingridient_dict['ingridients'][i].quantity - ingridient_dict['quantities'][i], 1)
                     ingridient_dict['ingridients'][i].save()
@@ -195,7 +195,7 @@ class PurchaseCost(View):
 
         context = {'revenue': 0.0, 'costs': 0.0}
         for purchase in today_purchases:
-            context['revenue'] += purchase.menu_item.price
+            context['revenue'] += purchase.price
 
             recipe_requirements = RecipeRequirement.objects.filter(menu_item=purchase.menu_item)
             for recipe in recipe_requirements:

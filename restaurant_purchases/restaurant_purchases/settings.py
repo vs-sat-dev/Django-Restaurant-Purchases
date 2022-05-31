@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-with open('django_secret_key') as dsk:
+with open(f'{BASE_DIR}/django_secret_key') as dsk:
     secret_key = dsk.read()
 SECRET_KEY = secret_key
 
@@ -39,6 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'rest_framework_simplejwt.token_blacklist',
+    'accounts_jwt.apps.AccountsJWTConfig',
     'accounts.apps.AccountsConfig',
     'restaurant.apps.RestaurantConfig',
 ]

@@ -31,6 +31,7 @@ class RecipeRequirement(models.Model):
 class Purchase(models.Model):
     menu_item = models.ForeignKey(MenuItem, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)
+    price = models.FloatField()
 
     def __str__(self):
         return self.menu_item.title
