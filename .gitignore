@@ -1,5 +1,4 @@
 /venv
-/db.sqlite3
 /restaurant_purchases/__pycache__
 /restaurant/__pycache__
 /restaurant_drf/__pycache__
