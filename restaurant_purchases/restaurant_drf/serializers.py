@@ -30,3 +30,10 @@ class MenuItemSerializer(serializers.ModelSerializer):
         fields = ['title', 'price']
 
 
+class RecipeRequirementSerializer(serializers.ModelSerializer):
+    quantity = serializers.FloatField(validators=[LessThanValidator(0, field_name='Quantity', is_char=False), 
+                                                  GreaterThanValidator(1000000, field_name='Quantity', is_char=False)])
+    
+    class Meta:
+        model = RecipeRequirement
+        fields = ['menu_item', 'ingridient', 'quantity']
