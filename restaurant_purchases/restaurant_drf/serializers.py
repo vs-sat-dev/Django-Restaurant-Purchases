@@ -19,3 +19,14 @@ class IngredientSerializer(serializers.ModelSerializer):
         fields = ['name', 'quantity', 'unit', 'unit_price']
 
 
+class MenuItemSerializer(serializers.ModelSerializer):
+    title = serializers.CharField(validators=[LessThanValidator(1, field_name='Title'), 
+                                             GreaterThanValidator(64, field_name='Title')])
+    price = serializers.FloatField(validators=[LessThanValidator(0, field_name='Price', is_char=False), 
+                                                  GreaterThanValidator(1000000, field_name='Price', is_char=False)])
+    
+    class Meta:
+        model = Ingridient
+        fields = ['title', 'price']
+
+
