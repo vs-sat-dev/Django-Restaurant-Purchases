@@ -1,8 +1,8 @@
 /venv
-/db.sqlite3
-/restaurant_purchases/__pycache__
-/restaurant/__pycache__
-/restaurant_drf/__pycache__
-/accounts/__pycache__
-/accounts_jwt/__pycache__
-/django_secret_key
+/restaurant_purchases/db.sqlite3
+/restaurant_purchases/restaurant_purchases/__pycache__
+/restaurant_purchases/restaurant/__pycache__
+/restaurant_purchases/restaurant_drf/__pycache__
+/restaurant_purchases/accounts/__pycache__
+/restaurant_purchases/accounts_jwt/__pycache__
+/restaurant_purchases/django_secret_key
