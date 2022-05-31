@@ -5,4 +5,4 @@
 /restaurant_purchases/accounts/__pycache__
 /restaurant_purchases/accounts_jwt
 /restaurant_purchases/accounts_jwt/__pycache__
-/restaurant_purchases/restaurant_purchases/django_secret_key
+/restaurant_purchases/django_secret_key
