@@ -92,8 +92,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'OPTIONS': {
-            'service': '.pg_service',
-            'passfile': '.my_pgpass',
+            'service': f'{BASE_DIR}/pg_service.conf',
+            'passfile': f'{BASE_DIR}/my_pgpass',
         },
     }
 }
@@ -105,8 +105,8 @@ DATABASES = {
     }
 }"""
 
-#db_from_env = dj_database_url.config(conn_max_age=600)
-#DATABASES['default'].update(db_from_env)
+db_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES['default'].update(db_from_env)
 
 
 # Password validation
