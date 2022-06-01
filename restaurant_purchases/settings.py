@@ -95,7 +95,8 @@ with open(f'{BASE_DIR}/db_password') as pwd:
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'mydb',
+        #'NAME': 'mydb',
+        'NAME': 'postgresql-infinite-09040',
         'USER': 'postgres',
         'PASSWORD': passwd,
         'HOST': 'localhost',
