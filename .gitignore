@@ -4,5 +4,3 @@
 /restaurant_drf/__pycache__
 /accounts/__pycache__
 /accounts_jwt/__pycache__
-django_secret_key
-db_password
