@@ -28,12 +28,9 @@ with open(f'{BASE_DIR}/django_secret_key') as dsk:
 SECRET_KEY = secret_key
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['restaurant-purchases.herokuapp.com']
-#ALLOWED_HOSTS = []
-
-
 
 # Application definition
 
@@ -95,8 +92,7 @@ with open(f'{BASE_DIR}/db_password') as pwd:
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        #'NAME': 'mydb',
-        'NAME': 'postgresql-infinite-09040',
+        'NAME': 'mydb',
         'USER': 'postgres',
         'PASSWORD': passwd,
         'HOST': 'localhost',
