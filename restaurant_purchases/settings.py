@@ -88,13 +88,17 @@ WSGI_APPLICATION = 'restaurant_purchases.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+with open(f'{BASE_DIR}/db_password') as pwd:
+    passwd = pwd.read()
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'OPTIONS': {
-            'service': f'{BASE_DIR}/pg_service.conf',
-            'passfile': f'{BASE_DIR}/my_pgpass',
-        },
+        'NAME': 'mydb',
+        'USER': 'postgres',
+        'PASSWORD': passwd,
+        'HOST': 'localhost',
+        'PORT': 5432,
     }
 }
 
@@ -146,6 +150,9 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATIC_ROOT = 'static/'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+MEDIA_URL = '/media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
