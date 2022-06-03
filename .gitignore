@@ -5,3 +5,4 @@
 /accounts/__pycache__
 /accounts_jwt/__pycache__
 .env
+/workflows
