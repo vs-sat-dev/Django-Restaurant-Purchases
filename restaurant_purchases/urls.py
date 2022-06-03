@@ -23,5 +23,5 @@ urlpatterns = [
     path('accounts_jwt/', include('accounts_jwt.urls')),
     path('restaurant/', include('restaurant.urls')),
     path('restaurant_drf/', include('restaurant_drf.urls')),
-    path('', TemplateView.as_view(template_name='home.html'), name='home'),
+    path('/', TemplateView.as_view(template_name='home.html'), name='home'),
 ]
