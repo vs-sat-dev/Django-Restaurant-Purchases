@@ -23,5 +23,5 @@ urlpatterns = [
     path('accounts_jwt/', include('accounts_jwt.urls')),
     path('restaurant/', include('restaurant.urls')),
     path('restaurant_drf/', include('restaurant_drf.urls')),
-    path('/', include('home.urls')),
+    path('home/', include('home.urls')),
 ]
