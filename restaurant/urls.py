@@ -10,7 +10,7 @@ from .views import (
 app_name = 'restaurant'
 
 urlpatterns = [
-    path('home/', TemplateView.as_view(template_name='home.html'), name='home'),
+    path('', TemplateView.as_view(template_name='home.html'), name='home'),
     path('ingridient-list/', IngridientList.as_view(), name='ingridient-list'),
     path('ingridient-update/<int:pk>/', IngridientUpdate.as_view(), name='ingridient-update'),
     path('ingridient-delete/<int:pk>/', IngridientDelete.as_view(), name='ingridient-delete'),
