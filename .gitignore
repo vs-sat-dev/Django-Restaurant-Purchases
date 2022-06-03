@@ -4,3 +4,4 @@
 /restaurant_drf/__pycache__
 /accounts/__pycache__
 /accounts_jwt/__pycache__
+.env

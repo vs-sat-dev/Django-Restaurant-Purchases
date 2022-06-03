@@ -14,7 +14,9 @@ from pathlib import Path
 from datetime import timedelta
 import dj_database_url
 import os
+from dotenv import load_dotenv
 
+load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -23,14 +25,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-with open(f'{BASE_DIR}/django_secret_key') as dsk:
-    secret_key = dsk.read()
-SECRET_KEY = secret_key
+"""with open(f'{BASE_DIR}/django_secret_key') as dsk:
+    secret_key = dsk.read()"""
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['restaurant-purchases.herokuapp.com']
+#ALLOWED_HOSTS = ['restaurant-purchases.herokuapp.com']
+ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -87,15 +90,15 @@ WSGI_APPLICATION = 'restaurant_purchases.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-with open(f'{BASE_DIR}/db_password') as pwd:
-    passwd = pwd.read()
+"""with open(f'{BASE_DIR}/db_password') as pwd:
+    passwd = pwd.read()"""
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'mydb',
         'USER': 'postgres',
-        'PASSWORD': passwd,
+        'PASSWORD': os.getenv('DB_PASSWORD'),
         'HOST': 'localhost',
         'PORT': 5432,
     }
