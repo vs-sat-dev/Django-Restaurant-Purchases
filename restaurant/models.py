@@ -6,6 +6,7 @@ class Ingridient(models.Model):
     quantity = models.FloatField()
     unit = models.CharField(max_length=64)
     unit_price = models.FloatField()
+    temporary_field = models.FloatField(default=0.0)
 
     def __str__(self):
         return self.name
