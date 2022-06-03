@@ -16,7 +16,7 @@ class IngredientSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Ingridient
-        fields = ['name', 'quantity', 'unit', 'unit_price']
+        fields = ['name', 'quantity', 'unit', 'unit_price', 'temporary_field']
 
 
 class MenuItemSerializer(serializers.ModelSerializer):

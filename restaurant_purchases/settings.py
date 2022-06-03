@@ -27,9 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 """with open(f'{BASE_DIR}/django_secret_key') as dsk:
     secret_key = dsk.read()"""
-#SECRET_KEY = os.getenv('SECRET_KEY')
-
-SECRET_KEY = 'django-insecure-i(ix#gyv@ao#cka9pkmbj1g0176bhwc8ukw=gxxs0-alh4695h'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -99,8 +97,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'mydb',
         'USER': 'postgres',
-        #'PASSWORD': os.getenv('DB_PASSWORD'),
-        'PASSWORD': '1234567890',
+        'PASSWORD': os.getenv('DB_PASSWORD'),
         'HOST': 'localhost',
         'PORT': 5432,
     }
