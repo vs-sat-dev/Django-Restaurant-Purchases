@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'accounts_jwt.apps.AccountsJWTConfig',
     'accounts.apps.AccountsConfig',
     'restaurant.apps.RestaurantConfig',
+    'home.apps.HomeConfig',
 ]
 
 MIDDLEWARE = [

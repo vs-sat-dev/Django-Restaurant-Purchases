@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from django.views.generic import TemplateView
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -23,5 +23,5 @@ urlpatterns = [
     path('accounts_jwt/', include('accounts_jwt.urls')),
     path('restaurant/', include('restaurant.urls')),
     path('restaurant_drf/', include('restaurant_drf.urls')),
-    path('home/', TemplateView.as_view(template_name='home.html'), name='home'),
+    path('', include('home.urls')),
 ]
