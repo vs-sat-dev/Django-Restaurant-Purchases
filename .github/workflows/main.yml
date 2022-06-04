@@ -34,12 +34,12 @@ jobs:
         #KEY: ${{ secrets.SSHKEY }}
         script: |
           cd ~
-          #export SECRET_KEY="django-insecure-i(ix#gyv@ao#cka9pkmbj1g0176bhwc8ukw=gxxs0-alh4695h"
+          export SECRET_KEY="django-insecure-i(ix#gyv@ao#cka9pkmbj1g0176bhwc8ukw=gxxs0-alh4695h"
           echo $SECRET_KEY
           source venv/bin/activate
           cd Django-Restaurant-Purchases
           git pull ${{secrets.REPO_NAME}}
           python3 manage.py makemigrations
-          #python3 manage.py migrate
-          #pkill gunicorn
-          #gunicorn restaurant_purchases.wsgi:application --bind 68.183.201.244:8000
+          python3 manage.py migrate
+          pkill gunicorn
+          gunicorn restaurant_purchases.wsgi:application --bind 68.183.201.244:8000
