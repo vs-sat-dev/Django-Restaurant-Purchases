@@ -34,8 +34,8 @@ jobs:
         #KEY: ${{ secrets.SSHKEY }}
         script: |
           cd ~
-          export SECRET_KEY="django-insecure-i(ix#gyv@ao#cka9pkmbj1g0176bhwc8ukw=gxxs0-alh4695h"
-          export DB_PASSWORD="1234567890"
+          export SECRET_KEY=${{ secrets.SECRET_KEY }}
+          export DB_PASSWORD=${{ secrets.DB_PASSWORD }}
           source venv/bin/activate
           cd Django-Restaurant-Purchases
           git pull ${{secrets.REPO_NAME}}
