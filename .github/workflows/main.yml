@@ -34,7 +34,7 @@ jobs:
         #KEY: ${{ secrets.SSHKEY }}
         script: |
           cd ~
-          export SECRET_KEY=${{ secrets.SECRET_KEY }}
+          export SECRET_KEY="${{ secrets.SECRET_KEY }}"
           export DB_PASSWORD=${{ secrets.DB_PASSWORD }}
           source venv/bin/activate
           cd Django-Restaurant-Purchases
