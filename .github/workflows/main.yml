@@ -32,7 +32,7 @@ jobs:
         PORT: ${{ secrets.PORT }}
         #SSH_PASSPHRASE: ${{secrets.SSH_PASSPHRASE}}
         #KEY: ${{ secrets.SSHKEY }}
-        script: |
+        run: |
           echo $USER
           su droplet_user
           echo $USER
