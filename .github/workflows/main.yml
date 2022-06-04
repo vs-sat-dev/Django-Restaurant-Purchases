@@ -38,6 +38,6 @@ jobs:
           cd Django-Restaurant-Purchases
           git pull ${{secrets.REPO_NAME}}
           python3 manage.py makemigrations
-          python3 manage.py migrate
-          pkill gunicorn
-          gunicorn restaurant_purchases.wsgi:application --bind 68.183.201.244:8000
+          #python3 manage.py migrate
+          #pkill gunicorn
+          #gunicorn restaurant_purchases.wsgi:application --bind 68.183.201.244:8000
