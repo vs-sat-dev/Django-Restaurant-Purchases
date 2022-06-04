@@ -36,7 +36,7 @@ jobs:
           su droplet_user
           ls
           cd ~
-          cd Django-Restaurant-Purchases
+          home/droplet_user/Django-Restaurant-Purchases
           git pull ${{secrets.REPO_NAME}}
           python3 manage.py makemigrations
           python3 manage.py migrate
