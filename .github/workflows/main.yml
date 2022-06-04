@@ -34,7 +34,7 @@ jobs:
         #KEY: ${{ secrets.SSHKEY }}
         script: |
           cd ~
-          home/droplet_user/Django-Restaurant-Purchases
+          cd Django-Restaurant-Purchases
           git pull ${{secrets.REPO_NAME}}
           python3 manage.py makemigrations
           python3 manage.py migrate
