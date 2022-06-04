@@ -33,11 +33,6 @@ jobs:
         #SSH_PASSPHRASE: ${{secrets.SSH_PASSPHRASE}}
         #KEY: ${{ secrets.SSHKEY }}
         script: |
-          echo $USER
-          su droplet_user
-          echo $USER
-          pwd
-          ls
           cd ~
           home/droplet_user/Django-Restaurant-Purchases
           git pull ${{secrets.REPO_NAME}}
