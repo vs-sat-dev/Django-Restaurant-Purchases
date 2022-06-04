@@ -34,6 +34,7 @@ jobs:
         #KEY: ${{ secrets.SSHKEY }}
         script: |
           cd ~
+          source venv/bin/activate
           cd Django-Restaurant-Purchases
           git pull ${{secrets.REPO_NAME}}
           python3 manage.py makemigrations
