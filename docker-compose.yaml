@@ -4,7 +4,7 @@ services:
     container_name: django
     command: gunicorn restaurant_purchases.wsgi:application --bind 68.183.201.244:8000 --daemon
     volumes: 
-      - .:./
+      - .:/usr/src/app
     ports: 
       - "8000:8000"
     depends_on: 
