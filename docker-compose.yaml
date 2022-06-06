@@ -4,11 +4,20 @@ services:
     container_name: gunicorn
     #command: gunicorn restaurant_purchases.wsgi:application --bind 68.183.201.244:8000
     volumes: 
-      - .:/usr/src/app
+      - static:/static
     ports: 
       - "8000:8000"
     depends_on: 
       - pgdb
+    
+  nginx:
+    build: ./nginx
+    volumes:
+      - static:/static
+    ports:
+      - "80:80"
+    depends_on:
+      - gunicorn
   
   pgdb:
     image: postgres:14.3-alpine
