@@ -1,10 +1,10 @@
 services:
-  django:
+  gunicorn:
     build: .
-    container_name: django
+    container_name: gunicorn
     command: gunicorn restaurant_purchases.wsgi:application --bind 134.122.43.197:8000
     volumes: 
-      - .:.
+      - .:/usr/src/app
     ports: 
       - "8000:8000"
     depends_on: 
