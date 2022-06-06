@@ -2,7 +2,7 @@ services:
   gunicorn:
     build: .
     container_name: gunicorn
-    command: gunicorn restaurant_purchases.wsgi:application --bind 68.183.201.244:8000
+    #command: gunicorn restaurant_purchases.wsgi:application --bind 68.183.201.244:8000
     volumes: 
       - .:/usr/src/app
     ports: 
