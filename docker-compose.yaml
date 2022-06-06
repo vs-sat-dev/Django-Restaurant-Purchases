@@ -26,6 +26,9 @@ services:
       - POSTGRES_DB=mydb
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=1234567890
+    ports:
+      - ports:
+      - "5432:5432"
     container_name: pgdb
     volumes: 
       - pgbdata:/var/lib/postgresql/data/
