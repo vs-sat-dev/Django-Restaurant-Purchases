@@ -1,4 +1,4 @@
-bind = '127.0.0.1:8000'
+bind = '68.183.201.244:8000'
 workers = 2
 user = 'root'
 timeout = 60
