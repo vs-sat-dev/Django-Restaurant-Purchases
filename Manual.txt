@@ -1,0 +1,92 @@
+#-----------------------------Создание VPS-------------------------------------------------------
+
+Заходим на digital-ocean.com в раздел pricing
+На странице выбираем тикет с надписью "Droplets Virtual Machines" за 5$
+На открывшейся странице выбираем самый дешёвый из доступных серверов - сервер за 5$
+
+Открывается окно настройки сервера
+
+Берём ОС Ubuntu 22.04
+В поле Authentication выбираем 
+Password -> Create a root password to access Droplet (less secure)
+Создаем пароль
+Все остальные поля на своё усмотрение
+Жмём Create Droplet
+
+После того как сервер будет создан, кликаем по нему, на открывшейся странице выбираем Access -> Launch Droplet Console чтобы запустить консоль для работы с сервером
+
+
+#-----------------------------Работа с локальными файлами-------------------------------------------------------
+В папке где находится manage.py создаем папку config
+Внутри папки config создаем два файла gunicorn.conf.py и restaurant_purchases.conf для настройки gunicorn сервера
+Содержимое файлов тут https://github.com/vs-sat-dev/Django-Restaurant-Purchases/tree/main/config
+
+В папке где находиться manage.py:
+
+	Создаем папку logs с файлом debug.log для записи логов gunicorn
+	Создаём папку static для хранения статических файлов(Если не создать, сервер будет ругаться)
+	Выполняем команду pip freeze > requirements.txt
+	git add commit и push
+
+На странице с описанием сервера, копируем IP-адрес сервера, открываем файл settings.py и указываем в поле ALLOWED_HOSTS = ['ip хоста']
+
+
+#-----------------------------Настройка проекта внутри VPS-------------------------------------------------------
+sudo apt update && sudo apt upgrade
+sudo apt install git
+sudo apt install необходимая версия python
+git clone https://github.com/vs-sat-dev/Django-Restaurant-Purchases.git
+python3 -m venv venv
+source venv/bin/activate
+cd Django-Restaurant-Purchases
+pip install -r requirements.txt
+
+Работа с базой данных PostgreSQL
+	sudo apt install postgresql
+	sudo -u postgres psql
+	CREATE DATABASE mydb;
+
+	CREATE USER postgres WITH PASSWORD '1234567890'; 
+	if error an user already exist then 
+	ALTER USER postgres WITH PASSWORD '1234567890';
+
+	GRANT ALL PRIVILEGES ON DATABASE mydb TO postgres;
+	\q
+
+
+export env variables if it necessery
+
+python3 manage.py makemigrations
+python3 manage.py migrate
+python3 manage.py runserver (For error check)
+
+gunicorn restaurant_purchases.wsgi:application --bind 134.122.43.197:8000
+
+
+#-----------------------------Настройка CI/CD для VPS-------------------------------------------------------
+
+
+Заходим на гитхаб, в репозиторий проекта. Переходим в Settings -> Secrets -> Actions жмём книпку New Repository Secret
+
+Добавляем name, value:
+	HOST, ip-хоста
+	SERVER_USERNAME, root
+	SERVER_USER_PASSWORD, пароль 
+	PORT, 22
+	REPO_URL, юрл репозитория для выполнения комманды git clone REPO_URL
+
+Все эти секретные переменные используются для запуска Action на гитхабе. При использовании комманды git push, запускается Action, который авторизируется на гитхабе и и выполняет произвольные комманды.
+
+Для создания Action, необходимо в папке где находится manage.py, создать папки .github/workflows/ внутри которых создать файл с произвольным именем с расширением .yaml. Например .github/workflows/main.yaml
+
+Содержимое файла тут https://github.com/vs-sat-dev/Django-Restaurant-Purchases/blob/main/.github/workflows/main.yml
+
+
+
+
+
+
+
+
+
+
