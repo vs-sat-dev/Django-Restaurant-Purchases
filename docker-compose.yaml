@@ -21,6 +21,7 @@ services:
   
   pgdb:
     image: postgres:14.3-alpine
+    hostname: pgdb
     restart: always
     environment:
       - DATABASE_URL=pgsql://postgres:1234567890@mydb:5432
