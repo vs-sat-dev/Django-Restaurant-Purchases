@@ -32,7 +32,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['restaurant-purchases.herokuapp.com', '127.0.0.1', '68.183.201.244']
+ALLOWED_HOSTS = ['restaurant-purchases.herokuapp.com', '127.0.0.1', '68.183.201.244', '134.122.43.197']
 
 # Application definition
 
