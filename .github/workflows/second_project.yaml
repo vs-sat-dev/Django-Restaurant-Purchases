@@ -42,4 +42,4 @@ jobs:
           python3 manage.py makemigrations
           python3 manage.py migrate
           pkill gunicorn
-          gunicorn restaurant_purchases.wsgi:application --bind 134.122.43.197:8000
+          gunicorn restaurant_purchases.wsgi:application --bind 134.122.43.197:8000 --daemon
