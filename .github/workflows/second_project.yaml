@@ -38,8 +38,8 @@ jobs:
           export DB_PASSWORD=${{ secrets.DB_PASSWORD }}
           export DB_HOST=134.122.43.197
           source venv/bin/activate
-          git clone ${{secrets.REPO_NAME}}
           cd Django-Restaurant-Purchases
+          git pull ${{secrets.REPO_NAME}}
           docker-compose down
           pkill gunicorn
           docker-compose up
