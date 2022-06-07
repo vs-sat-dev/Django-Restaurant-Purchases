@@ -82,6 +82,13 @@ gunicorn restaurant_purchases.wsgi:application --bind 134.122.43.197:8000
 Содержимое файла тут https://github.com/vs-sat-dev/Django-Restaurant-Purchases/blob/main/.github/workflows/main.yml
 
 
+#-----------------------------Настройка докера для запуска на VPS-------------------------------------------------------
+
+В папке где находится manage.py создаём Dockerfile для того, чтобы собрать python нужной версии, установить все необходимые библиотеки в проект и запустить сервер gunicorn. Содержимое файла Dockerfile тут https://github.com/vs-sat-dev/Django-Restaurant-Purchases/blob/main/Dockerfile В самом конце файла Dockerfile указывается entrypoint.sh файл с коммандами для миграций и запуска сервера gunicorn. Его нужно создать в той же папке, что и Dockerfile. Содержимое файла тут https://github.com/vs-sat-dev/Django-Restaurant-Purchases/blob/main/entrypoint.sh
+
+
+
+
 
 
 
