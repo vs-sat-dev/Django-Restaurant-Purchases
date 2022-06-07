@@ -90,9 +90,37 @@ gunicorn restaurant_purchases.wsgi:application --bind 134.122.43.197:8000
 https://github.com/vs-sat-dev/Django-Restaurant-Purchases/blob/main/nginx/Dockerfile
 https://github.com/vs-sat-dev/Django-Restaurant-Purchases/blob/main/nginx/default.conf
 
-В папке где находится manage.py создаём файл docker-compose с помощью которого мы установим Базу Данных PostgreSQL, запустим сборку python из файла Dockerfile и запустим установку nginx из файла nginx/Dockerfile
+В папке где находится manage.py создаём файл docker-compose.yaml с помощью которого мы установим Базу Данных PostgreSQL, запустим сборку python из файла Dockerfile и запустим установку nginx из файла nginx/Dockerfile Содержимое файла docker-compose.yaml тут https://github.com/vs-sat-dev/Django-Restaurant-Purchases/blob/main/docker-compose.yaml
+
+Чтобы запустить докер контейнер на VPS-сервере, нам нужен установленный докер. Скачиваем github-репозиторий с файлами, заходим в папку где находится файл manage.py, создаем файл с переменными окружения .env, внутри которого указываем все ENVIRONMENT VARIABLES. У меня они выглядели так
+
+SECRET_KEY=django-insecure-i(ix#gyv@ao#cka9pkmbj1g0176bhwc8ukw=gxxs0-alh4695h
+DB_PASSWORD=1234567890
+DB_HOST=134.122.43.197
+
+В файле settings проекта Django в настройках базы данных PostgreSQL обязательно указываем HOST нашего VPS
+
+DATABASES = {
+    'default': {
+		...,
+		'HOST': os.getenv('DB_HOST'),
+		...,
+	}
+}
 
 
+Запускаем комманды
+
+--------------Если контейнер уже запущен, останавливаем его-----------------
+docker-compose down
+---------------------------------------------------------
+
+docker-compose build
+docker-compose up
+
+Если нам нужно запустить докер в background, чтобы не получать никакого вывода в консоль, запускаем
+
+docker-compose up -d
 
 
 
