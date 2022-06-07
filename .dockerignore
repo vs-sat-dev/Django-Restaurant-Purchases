@@ -1,0 +1,8 @@
+venv/
+restaurant_purchases/__pycache__/
+restaurant/__pycache__/
+restaurant_drf/__pycache__/
+accounts/__pycache__/
+accounts_jwt/__pycache__/
+.env
+workflows/
