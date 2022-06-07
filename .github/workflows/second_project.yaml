@@ -28,7 +28,7 @@ jobs:
           git pull ${{secrets.REPO_NAME}}
           docker-compose down
           pkill gunicorn
-          docker-compose up
+          docker-compose up --daemon
           #python3 manage.py makemigrations
           #python3 manage.py migrate
           #pkill gunicorn
