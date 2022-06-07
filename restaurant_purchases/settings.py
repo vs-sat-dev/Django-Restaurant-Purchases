@@ -99,7 +99,7 @@ DATABASES = {
         'NAME': 'mydb',
         'USER': 'postgres',
         'PASSWORD': os.getenv('DB_PASSWORD'),
-        'HOST': '0.0.0.0',
+        'HOST': '68.183.201.244',
         'PORT': 5432,
     }
 }
