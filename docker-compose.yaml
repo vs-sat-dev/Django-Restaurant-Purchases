@@ -6,7 +6,7 @@ services:
     volumes: 
       - .:/usr/src/app
     environment:
-      - DB_HOST=127.0.0.1
+      - DB_HOST=0.0.0.0
       - DB_NAME=mydb
       - DB_USER=postgres
       - DB_PASS=1234567890
