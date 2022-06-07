@@ -23,6 +23,7 @@ jobs:
           cd ~
           export SECRET_KEY="${{ secrets.SECRET_KEY }}"
           export DB_PASSWORD=${{ secrets.DB_PASSWORD }}
+          export DB_HOST=68.183.201.244
           source venv/bin/activate
           cd Django-Restaurant-Purchases
           git pull ${{secrets.REPO_NAME}}

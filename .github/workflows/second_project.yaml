@@ -36,10 +36,14 @@ jobs:
           cd ~
           export SECRET_KEY="${{ secrets.SECRET_KEY }}"
           export DB_PASSWORD=${{ secrets.DB_PASSWORD }}
+          export DB_HOST=134.122.43.197
           source venv/bin/activate
+          git clone ${{secrets.REPO_NAME}}
           cd Django-Restaurant-Purchases
-          git pull ${{secrets.REPO_NAME}}
-          python3 manage.py makemigrations
-          python3 manage.py migrate
+          docker-compose down
           pkill gunicorn
-          gunicorn restaurant_purchases.wsgi:application --bind 134.122.43.197:8000 --daemon
+          docker-compose up
+          #python3 manage.py makemigrations
+          #python3 manage.py migrate
+          #pkill gunicorn
+          #gunicorn restaurant_purchases.wsgi:application --bind 134.122.43.197:8000 --daemon
