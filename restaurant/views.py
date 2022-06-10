@@ -174,11 +174,11 @@ class MenuItemBuy(DetailView):
                 for i in range(len(ingridient_dict)):
                     ingridient_dict['ingridients'][i].quantity = round(ingridient_dict['ingridients'][i].quantity - ingridient_dict['quantities'][i], 1)
                     ingridient_dict['ingridients'][i].save()
-                #bot = telegram.Bot(token='5281891159:AAHq0q3fFn-b0oNyM5SAqIaPeXsBrwueSyw')
-                #bot.sendMessage(chat_id='241630970', text='My message')
-                send_telegram_message(message='It was bouth', chat_id='241630970', 
-                                      api_key='5281891159:AAHq0q3fFn-b0oNyM5SAqIaPeXsBrwueSyw',
-                                      csrf_token=csrf.get_token(self.request))
+                bot = telegram.Bot(token='5281891159:AAHq0q3fFn-b0oNyM5SAqIaPeXsBrwueSyw')
+                bot.sendMessage(chat_id='241630970', text='My message')
+                #send_telegram_message(message='It was bouth', chat_id='241630970', 
+                #                      api_key='5281891159:AAHq0q3fFn-b0oNyM5SAqIaPeXsBrwueSyw',
+                #                      csrf_token=csrf.get_token(self.request))
         
         return redirect('restaurant:menu-item-list')
 
