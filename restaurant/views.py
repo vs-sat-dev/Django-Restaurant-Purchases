@@ -141,6 +141,7 @@ def send_telegram_message(message: str,
     print('Response: ', response)
 
 
+@csrf_exempt
 @method_decorator(login_required, name='dispatch')
 class MenuItemBuy(DetailView):
     model = MenuItem
@@ -155,7 +156,6 @@ class MenuItemBuy(DetailView):
                 context['object'].is_buy = False
         return context
 
-    @csrf_exempt
     def post(self, request, **kwargs):
         menu_item = get_object_or_404(MenuItem, pk=kwargs['pk'])
         if menu_item is not None:
