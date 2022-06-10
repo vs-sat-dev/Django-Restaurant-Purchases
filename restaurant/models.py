@@ -36,3 +36,9 @@ class Purchase(models.Model):
 
     def __str__(self):
         return self.menu_item.title
+
+
+class TelegramNotification(models.Model):
+    ingredient = models.ForeignKey(Ingridient, on_delete=models.CASCADE)
+    status = models.IntegerField(default=0)
+    datetime = models.DateTimeField(auto_now=True)

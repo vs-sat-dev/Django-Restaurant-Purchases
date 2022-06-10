@@ -9,7 +9,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'restaurant_purchases.settings')
 django.setup()
 
 
-from restaurant.models import Ingridient
+from restaurant.models import Ingridient, TelegramNotification
 
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO
@@ -24,7 +24,7 @@ manager = '241630970'
 store_worker = '241630970'
 
 
-def start(update, _):
+def start(update, context):
     print('US: ', update.message.from_user)
     if str(update.message.from_user.id) in allowed_users:
         update.message.reply_text('Hello!')
@@ -40,7 +40,11 @@ def custom_command(update: Update, context: ContextTypes) -> None:
                 text = float(update.message.text)
                 status = 'idle'
                 bot = telegram.Bot(token=api_token)
-                bot.sendMessage(chat_id=store_worker, text=f'You must buy {text}')
+                bot.sendMessage(chat_id=store_worker, text=f'You must buy {text} {context.user_data["ingredient_name"]}')
+
+                tn = TelegramNotification.objects.filter(status=1).first()
+                tn.status = 2
+                tn.save(update_fields=['status'])
             except:
                 text = 'Quantity must be numeric'
                 update.message.reply_text(text)
@@ -48,7 +52,7 @@ def custom_command(update: Update, context: ContextTypes) -> None:
         update.message.reply_text('Forbidden')
 
 
-def button(update, _):
+def button(update, context):
     query = update.callback_query
     variant = query.data[:3]
 
@@ -59,13 +63,61 @@ def button(update, _):
     #  случае у некоторых клиентов могут возникнуть проблемы. 
     # смотри https://core.telegram.org/bots/api#callbackquery.
     query.answer()
+    global status
     # редактируем сообщение, тем самым кнопки 
     # в чате заменятся на этот ответ.
     if variant == 'yes':
         ingredient_id = int(query.data[3:])
-        global status
         status = 'add_ingredient'
-        query.edit_message_text(text=f"How much ingredient must be bouth?:")
+        try:
+            ingredient = Ingridient.objects.get(id=ingredient_id)
+            context.user_data['ingredient_name'] = ingredient.name
+            query.edit_message_text(text=f"How much {ingredient.name} must be bouth?:")
+        except:
+            status = 'idle'
+            query.edit_message_text(text=f"Ingredient does not exist")
+    elif variant == 'not':
+        ingredient_id = int(query.data[3:])
+        try:
+            print('del1')
+            ingredient = Ingridient.objects.get(id=ingredient_id)
+            print('del2')
+            context.user_data['ingredient_name'] = ingredient.name
+            print('del3')
+            query.edit_message_text(text="Ok")
+            print('del4')
+
+            tn = TelegramNotification.objects.get(ingredient__id=ingredient.id)
+            print('del5')
+            tn.delete()
+            print('del6')
+        except:
+            status = 'idle'
+            query.edit_message_text(text=f"Ingredient does not exist")
+
+def callback_minute(context: telegram.ext.CallbackContext):
+    ingredient_status = TelegramNotification.objects.filter(status=1)
+    print('step1 ', len(ingredient_status))
+    if len(ingredient_status) == 0:
+        print('step2')
+        tn = TelegramNotification.objects.filter(status=0).first()
+        if tn:
+            print('step3')
+            ingredient = tn.ingredient
+
+            tn.status = 1
+            tn.save(update_fields=['status'])
+            keyboard = [
+                [
+                    InlineKeyboardButton("Yes", callback_data=f'yes{ingredient.id}'),
+                    InlineKeyboardButton("No", callback_data=f'not{ingredient.id}'),
+                ],
+            ]
+            reply_markup = InlineKeyboardMarkup(keyboard)
+            bot = telegram.Bot(token='5281891159:AAHq0q3fFn-b0oNyM5SAqIaPeXsBrwueSyw')
+            bot.sendMessage(chat_id='241630970', 
+                text=f'The {ingredient.name} was ended. Quantity={ingredient.quantity}. Do you wish buy it?', 
+                reply_markup=reply_markup)
 
 def help_command(update, _):
     update.message.reply_text("Используйте `/start` для тестирования.")
@@ -77,6 +129,9 @@ if __name__ == '__main__':
     updater.dispatcher.add_handler(CommandHandler('start', start))
     updater.dispatcher.add_handler(CallbackQueryHandler(button))
     updater.dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, custom_command))
+
+    jq = updater.job_queue
+    job_minute = jq.run_repeating(callback_minute, interval=5)
 
     # Запуск бота
     updater.start_polling()
