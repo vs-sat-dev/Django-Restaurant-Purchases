@@ -155,12 +155,13 @@ class MenuItemBuy(DetailView):
                 keyboard = [
                     [
                         InlineKeyboardButton("Yes", callback_data='yes'),
-                        InlineKeyboardButton("No", callback_data='no'),
                     ],
                 ]
                 reply_markup = InlineKeyboardMarkup(keyboard)
                 bot = telegram.Bot(token='5281891159:AAHq0q3fFn-b0oNyM5SAqIaPeXsBrwueSyw')
-                bot.sendMessage(chat_id='241630970', text='My message', reply_markup=reply_markup)
+                bot.sendMessage(chat_id='241630970', 
+                    text=f'The {ingridient_dict["ingridients"][i].name} was ended. Quantity={ingridient_dict["ingridients"][i].quantity}', 
+                    reply_markup=reply_markup)
                 #send_telegram_message(message='It was bouth', chat_id='241630970', 
                 #                      api_key='5281891159:AAHq0q3fFn-b0oNyM5SAqIaPeXsBrwueSyw',
                 #                      csrf_token=csrf.get_token(self.request))
