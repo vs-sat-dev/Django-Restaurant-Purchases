@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.urls import reverse
 from django.utils.timezone import now, timedelta
+import telegram
 
 from .models import Ingridient, MenuItem, RecipeRequirement, Purchase
 from .forms import IngridientForm, MenuItemForm, RecipeRequirementForm
@@ -146,6 +147,8 @@ class MenuItemBuy(DetailView):
                 for i in range(len(ingridient_dict)):
                     ingridient_dict['ingridients'][i].quantity = round(ingridient_dict['ingridients'][i].quantity - ingridient_dict['quantities'][i], 1)
                     ingridient_dict['ingridients'][i].save()
+                bot = telegram.Bot(token='5281891159:AAHq0q3fFn-b0oNyM5SAqIaPeXsBrwueSyw')
+                bot.sendMessage(chat_id='241630970', text='My message')
         
         return redirect('restaurant:menu-item-list')
 

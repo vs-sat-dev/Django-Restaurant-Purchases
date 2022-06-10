@@ -1,0 +1,65 @@
+--------------------------------------------------------Git-------------------------------------------------------------
+https://www.youtube.com/playlist?list=PLDyvV36pndZFHXjXuwA_NywNrVQO0aQqb
+Если коротко, то первые 25 уроков + 34 урок(git cherry-pick), далее по необходимости
+------------------------------------------------------------------------------------------------------------------------
+Комманда git fetch
+https://www.youtube.com/watch?v=EnCe89ioCZQ
+
+--------------------------------------------------------Docker-------------------------------------------------------------
+https://www.youtube.com/playlist?list=PL0lO_mIqDDFX1c0JHogP5YuZdOVawoepS
+
+--------------------------------------------------------Deploy Django Project to VPS-------------------------------------------------------------
+https://www.youtube.com/watch?v=mp4rwP7Ny_A&t=5891s
+
+
+--------------------------------------------------------Useful Git Commands-------------------------------------------------------------
+
+git clone [repo_url]                               		- Clone remote repository to local computer
+git status                                        		- Show status of local repository
+git add .                                         		- Add all files to index of changes
+git add [file-name]                               		- Add one file with name file-name to index of changes
+git commit -m "[commit message]"                  		- Commit changes. Make new point of history of changes
+git branch                                        		- Show list of all branches
+git branch [branch name]                          		- Create new branch
+git branch -d [branch name]                       		- Delete branch
+git branch -D [branch name]                       		- Delete branch forcefully
+git push origin --delete [branch name]                  	- Delete remote branch
+git checkout -b [branch name] origin/[branch name]      	- Clone a remote branch and switch to it
+git checkout [branch name]						- Switch to a branch
+git checkout -- [file-name.txt]                             - Discard changes to a file
+git merge [source branch] [target branch]                   - Merge a branch into a target branch
+git stash                                                   - Stash changes in a dirty working directory
+git stash clear                                             - Remove all stashed entries
+git push origin [branch name]						- Push a branch to your remote repository
+git push -u origin [branch name]                            - Push changes to remote repository (and remember the branch)
+git push									- Push changes to remote repository (remembered branch)
+git push origin --delete [branch name]				- Delete a remote branch
+git pull									- Update local repository to the newest commit
+git log									- View changes
+git log --summary								- View changes (detailed)
+git log --oneline								- View changes (briefly)
+git diff [source branch] [target branch]				- Preview changes before merging
+git diff --name-only [source branch] [target branch]		- Preview changes before merging only filenames
+git revert [commitid]							- Revert commit changes
+git fetch [repo_url]                                        - Update local repository to the newest commit but doesn't save it
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
