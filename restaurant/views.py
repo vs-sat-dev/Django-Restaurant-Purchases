@@ -161,7 +161,7 @@ class MenuItemBuy(DetailView):
                 ]
                 reply_markup = InlineKeyboardMarkup(keyboard)
                 bot = telegram.Bot(token='5281891159:AAHq0q3fFn-b0oNyM5SAqIaPeXsBrwueSyw')
-                bot.sendMessage(chat_id='241630970', text='My message')
+                bot.sendMessage(chat_id='241630970', text='My message', reply_markup=reply_markup)
                 #send_telegram_message(message='It was bouth', chat_id='241630970', 
                 #                      api_key='5281891159:AAHq0q3fFn-b0oNyM5SAqIaPeXsBrwueSyw',
                 #                      csrf_token=csrf.get_token(self.request))
