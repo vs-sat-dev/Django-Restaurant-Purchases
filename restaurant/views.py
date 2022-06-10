@@ -153,11 +153,8 @@ class MenuItemBuy(DetailView):
                     ingridient_dict['ingridients'][i].save()
                 
                 keyboard = [
-                    [
-                        InlineKeyboardButton("Yes", callback_data='yes'),
-                        InlineKeyboardButton("No", callback_data='no'),
-                    ],
-                    [InlineKeyboardButton("Option 3", callback_data='3')],
+                    InlineKeyboardButton("Yes", callback_data='yes'),
+                    InlineKeyboardButton("No", callback_data='no'),
                 ]
                 reply_markup = InlineKeyboardMarkup(keyboard)
                 bot = telegram.Bot(token='5281891159:AAHq0q3fFn-b0oNyM5SAqIaPeXsBrwueSyw')
