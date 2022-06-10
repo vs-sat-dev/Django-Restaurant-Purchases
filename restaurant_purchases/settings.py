@@ -34,6 +34,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['restaurant-purchases.herokuapp.com', '127.0.0.1', 
                 '68.183.201.244', '134.122.43.197', '0.0.0.0', 'localhost']
+CSRF_TRUSTED_ORIGINS = ['restaurant-purchases.herokuapp.com', '127.0.0.1', 
+                '68.183.201.244', '134.122.43.197', '0.0.0.0', 'localhost']
 
 # Application definition
 
