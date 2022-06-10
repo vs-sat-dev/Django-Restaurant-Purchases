@@ -119,7 +119,6 @@ class RecipeRequirementList(ListView):
             return render(request, 'recipe-requirement-post.html', context=context)
 
 
-@csrf_exempt
 def send_telegram_message(message: str,
                             chat_id: str,
                             api_key: str,
@@ -156,6 +155,7 @@ class MenuItemBuy(DetailView):
                 context['object'].is_buy = False
         return context
 
+    @csrf_exempt
     def post(self, request, **kwargs):
         menu_item = get_object_or_404(MenuItem, pk=kwargs['pk'])
         if menu_item is not None:
