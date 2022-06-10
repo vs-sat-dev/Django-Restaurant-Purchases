@@ -1,8 +1,9 @@
 import logging
-
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import Updater, CommandHandler, CallbackQueryHandler, MessageHandler, Filters, ContextTypes
 import telegram
+
+from restaurant.models import Ingridient
 
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO
@@ -43,7 +44,9 @@ def custom_command(update: Update, context: ContextTypes) -> None:
 
 def button(update, _):
     query = update.callback_query
-    variant = query.data
+    variant = query.data[:3]
+
+    print('QData: ', query.data)
 
     # `CallbackQueries` требует ответа, даже если 
     # уведомление для пользователя не требуется, в противном
@@ -53,6 +56,7 @@ def button(update, _):
     # редактируем сообщение, тем самым кнопки 
     # в чате заменятся на этот ответ.
     if variant == 'yes':
+        ingredient_id = int(query.data[3:])
         global status
         status = 'add_ingredient'
         query.edit_message_text(text=f"How much ingredient must be bouth?:")
