@@ -13,10 +13,10 @@ markup.add(button)
 
 @dispatcher.message_handler(commands=['start', 'help'])
 async def start(message: Message):
-    await message.reply('Hello Telegram!')
+    await message.reply('Hello Telegram!', reply_markup=markup)
 
 @dispatcher.message_handler(commands='add_ingredient')
-async def start(message: Message):
+async def add(message: Message):
     await message.reply('add_ingredient', reply_markup=markup)
 
 

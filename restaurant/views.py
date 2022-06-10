@@ -7,6 +7,7 @@ from django.urls import reverse
 from django.utils.timezone import now, timedelta
 from django.middleware import csrf
 import telegram
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 import requests
 import json
 
@@ -118,28 +119,6 @@ class RecipeRequirementList(ListView):
             return render(request, 'recipe-requirement-post.html', context=context)
 
 
-def send_telegram_message(message: str,
-                            chat_id: str,
-                            api_key: str,
-                            csrf_token: str,
-                            proxy_username: str = None,
-                            proxy_password: str = None,
-            proxy_url: str = None):
-    responses = {}
-
-    proxies = None
-    headers = {'Content-Type': 'application/json',
-                'Proxy-Authorization': 'Basic base64', 'X-CSRFToken': csrf_token}
-    data_dict = {'chat_id': chat_id,
-                    'text': message,
-                    'parse_mode': 'HTML',
-                    'disable_notification': True}
-    data = json.dumps(data_dict)
-    url = f'https://api.telegram.org/bot{api_key}/sendMessage'
-    response = requests.post(url, data=data, headers=headers, proxies=proxies, verify=False)
-    print('Response: ', response)
-
-
 @method_decorator(login_required, name='dispatch')
 class MenuItemBuy(DetailView):
     model = MenuItem
@@ -172,6 +151,15 @@ class MenuItemBuy(DetailView):
                 for i in range(len(ingridient_dict)):
                     ingridient_dict['ingridients'][i].quantity = round(ingridient_dict['ingridients'][i].quantity - ingridient_dict['quantities'][i], 1)
                     ingridient_dict['ingridients'][i].save()
+                
+                keyboard = [
+                    [
+                        InlineKeyboardButton("Yes", callback_data='yes'),
+                        InlineKeyboardButton("No", callback_data='no'),
+                    ],
+                    [InlineKeyboardButton("Option 3", callback_data='3')],
+                ]
+                reply_markup = InlineKeyboardMarkup(keyboard)
                 bot = telegram.Bot(token='5281891159:AAHq0q3fFn-b0oNyM5SAqIaPeXsBrwueSyw')
                 bot.sendMessage(chat_id='241630970', text='My message')
                 #send_telegram_message(message='It was bouth', chat_id='241630970', 
