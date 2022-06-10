@@ -9,6 +9,7 @@ from django.middleware import csrf
 import telegram
 import requests
 import json
+from django.views.decorators.csrf import csrf_exempt
 
 from .models import Ingridient, MenuItem, RecipeRequirement, Purchase
 from .forms import IngridientForm, MenuItemForm, RecipeRequirementForm
@@ -118,13 +119,14 @@ class RecipeRequirementList(ListView):
             return render(request, 'recipe-requirement-post.html', context=context)
 
 
+@csrf_exempt
 def send_telegram_message(message: str,
-                          chat_id: str,
-                          api_key: str,
-                          csrf_token: str,
-                          proxy_username: str = None,
-                          proxy_password: str = None,
-		  proxy_url: str = None):
+                            chat_id: str,
+                            api_key: str,
+                            csrf_token: str,
+                            proxy_username: str = None,
+                            proxy_password: str = None,
+            proxy_url: str = None):
     responses = {}
 
     proxies = None
