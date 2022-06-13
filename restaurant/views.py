@@ -152,16 +152,16 @@ class MenuItemBuy(DetailView):
                     ingridient_dict['ingridients'][i].quantity = round(ingridient_dict['ingridients'][i].quantity - ingridient_dict['quantities'][i], 1)
                     ingridient_dict['ingridients'][i].save()
                 
-                for tn in TelegramNotification.objects.all():
-                    tn.delete()
+                """for tn in TelegramNotification.objects.all():
+                    tn.delete()"""
                 
-                """threshold = 100
+                threshold = 100
                 for recipe_requirement in RecipeRequirement.objects.all():
                     if recipe_requirement.quantity*threshold > recipe_requirement.ingridient.quantity:
                         try:
                             tn = TelegramNotification.objects.get(ingredient=recipe_requirement.ingridient)
                         except:
-                            TelegramNotification.objects.create(ingredient=recipe_requirement.ingridient)"""
+                            TelegramNotification.objects.create(ingredient=recipe_requirement.ingridient)
 
         
         return redirect('restaurant:menu-item-list')
