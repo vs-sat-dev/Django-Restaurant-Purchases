@@ -159,17 +159,6 @@ class MenuItemBuy(DetailView):
                             tn = TelegramNotification.objects.get(ingredient=recipe_requirement.ingridient)
                         except:
                             TelegramNotification.objects.create(ingredient=recipe_requirement.ingridient)
-                
-                """keyboard = [
-                    [
-                        InlineKeyboardButton("Yes", callback_data=f'yes{ingridient_dict["ingridients"][i].id}'),
-                    ],
-                ]
-                reply_markup = InlineKeyboardMarkup(keyboard)
-                bot = telegram.Bot(token='5281891159:AAHq0q3fFn-b0oNyM5SAqIaPeXsBrwueSyw')
-                bot.sendMessage(chat_id='241630970', 
-                    text=f'The {ingridient_dict["ingridients"][i].name} was ended. Quantity={ingridient_dict["ingridients"][i].quantity}. Do you wish buy it?', 
-                    reply_markup=reply_markup)"""
                 #send_telegram_message(message='It was bouth', chat_id='241630970', 
                 #                      api_key='5281891159:AAHq0q3fFn-b0oNyM5SAqIaPeXsBrwueSyw',
                 #                      csrf_token=csrf.get_token(self.request))
