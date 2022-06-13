@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'restaurant.apps.RestaurantConfig',
     'home.apps.HomeConfig',
+    #'telegram_bot.apps.TelegramBotConfig',
 ]
 
 MIDDLEWARE = [

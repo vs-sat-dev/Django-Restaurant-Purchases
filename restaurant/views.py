@@ -151,8 +151,14 @@ class MenuItemBuy(DetailView):
                 for i in range(len(ingridient_dict)):
                     ingridient_dict['ingridients'][i].quantity = round(ingridient_dict['ingridients'][i].quantity - ingridient_dict['quantities'][i], 1)
                     ingridient_dict['ingridients'][i].save()
-
-                    TelegramNotification.objects.create(ingredient=ingridient_dict['ingridients'][i])
+                
+                threshold = 100
+                for recipe_requirement in RecipeRequirement.objects.all():
+                    if recipe_requirement.quantity*threshold > recipe_requirement.ingridient.quantity:
+                        try:
+                            tn = TelegramNotification.objects.get(ingredient=recipe_requirement.ingridient)
+                        except:
+                            TelegramNotification.objects.create(ingredient=recipe_requirement.ingridient)
                 
                 """keyboard = [
                     [
