@@ -152,16 +152,17 @@ class MenuItemBuy(DetailView):
                     ingridient_dict['ingridients'][i].quantity = round(ingridient_dict['ingridients'][i].quantity - ingridient_dict['quantities'][i], 1)
                     ingridient_dict['ingridients'][i].save()
                 
-                threshold = 100
+                for tn in TelegramNotification.objects.all():
+                    tn.delete()
+                
+                """threshold = 100
                 for recipe_requirement in RecipeRequirement.objects.all():
                     if recipe_requirement.quantity*threshold > recipe_requirement.ingridient.quantity:
                         try:
                             tn = TelegramNotification.objects.get(ingredient=recipe_requirement.ingridient)
                         except:
-                            TelegramNotification.objects.create(ingredient=recipe_requirement.ingridient)
-                #send_telegram_message(message='It was bouth', chat_id='241630970', 
-                #                      api_key='5281891159:AAHq0q3fFn-b0oNyM5SAqIaPeXsBrwueSyw',
-                #                      csrf_token=csrf.get_token(self.request))
+                            TelegramNotification.objects.create(ingredient=recipe_requirement.ingridient)"""
+
         
         return redirect('restaurant:menu-item-list')
 
