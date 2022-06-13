@@ -92,6 +92,10 @@ def button(update, context):
                     bot = telegram.Bot(token='5281891159:AAHq0q3fFn-b0oNyM5SAqIaPeXsBrwueSyw')
                     bot.sendMessage(chat_id=manager, text=f'The store worker bouth {store_task.quantity} of {store_task.ingredient.name}',
                                     reply_markup=reply_markup) 
+                    
+                    ingredient.quantity = store_task.quantity
+                    ingredient.save(update_fields=['quantity'])
+
                     store_task.delete()
                     tn = TelegramNotification.objects.get(ingredient__id=ingredient_id)
                     tn.delete()
