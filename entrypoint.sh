@@ -1,4 +1,5 @@
 #!/bin/sh
+python manage.py makemigrations
 python manage.py migrate
 python dispatcher.py &
 #python manage.py collectstatic
