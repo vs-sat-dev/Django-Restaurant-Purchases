@@ -14,6 +14,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'restaurant_purchases.settings')
 django.setup()
 
 from restaurant.models import Ingridient, TelegramNotification, StoreTask
+from hundlers import api_token
 
 def button(update, context):
     query = update.callback_query
@@ -52,13 +53,13 @@ def button(update, context):
                         ],
                     ]
                     reply_markup = InlineKeyboardMarkup(keyboard)
-                    bot = telegram.Bot(token='5281891159:AAHq0q3fFn-b0oNyM5SAqIaPeXsBrwueSyw')
+                    bot = telegram.Bot(token=api_token)
                     bot.sendMessage(chat_id=store_worker, text=text, reply_markup=reply_markup) 
             else:
-                bot = telegram.Bot(token='5281891159:AAHq0q3fFn-b0oNyM5SAqIaPeXsBrwueSyw')
+                bot = telegram.Bot(token=api_token)
                 bot.sendMessage(chat_id=store_worker, text=f'You haven\'t tasks') 
         except:
-            bot = telegram.Bot(token='5281891159:AAHq0q3fFn-b0oNyM5SAqIaPeXsBrwueSyw')
+            bot = telegram.Bot(token=api_token)
             bot.sendMessage(chat_id=store_worker, text=f'Some thing go wrong') 
     
     elif variant == 'rst':
@@ -67,13 +68,13 @@ def button(update, context):
             if len(store_tasks) > 0:
                 for task in store_tasks:
                     text = f'You required {task.quantity} of {task.ingredient.name}'
-                    bot = telegram.Bot(token='5281891159:AAHq0q3fFn-b0oNyM5SAqIaPeXsBrwueSyw')
+                    bot = telegram.Bot(token=api_token)
                     bot.sendMessage(chat_id=store_worker, text=text) 
             else:
-                bot = telegram.Bot(token='5281891159:AAHq0q3fFn-b0oNyM5SAqIaPeXsBrwueSyw')
+                bot = telegram.Bot(token=api_token)
                 bot.sendMessage(chat_id=manager, text=f'You haven\'t requirements') 
         except:
-            bot = telegram.Bot(token='5281891159:AAHq0q3fFn-b0oNyM5SAqIaPeXsBrwueSyw')
+            bot = telegram.Bot(token=api_token)
             bot.sendMessage(chat_id=store_worker, text=f'Some thing go wrong') 
 
     elif variant == 'buy':
@@ -89,7 +90,7 @@ def button(update, context):
                         ],
                     ]
                     reply_markup = InlineKeyboardMarkup(keyboard)
-                    bot = telegram.Bot(token='5281891159:AAHq0q3fFn-b0oNyM5SAqIaPeXsBrwueSyw')
+                    bot = telegram.Bot(token=api_token)
                     bot.sendMessage(chat_id=manager, text=f'The store worker bouth {store_task.quantity} of {store_task.ingredient.name}',
                                     reply_markup=reply_markup) 
                     
@@ -101,12 +102,12 @@ def button(update, context):
                     tn.delete()
                     query.edit_message_text(text="Ok")
                 else:
-                    bot = telegram.Bot(token='5281891159:AAHq0q3fFn-b0oNyM5SAqIaPeXsBrwueSyw')
+                    bot = telegram.Bot(token=api_token)
                     bot.sendMessage(chat_id=store_worker, text=f'This StoreTask was not found') 
             except:
-                bot = telegram.Bot(token='5281891159:AAHq0q3fFn-b0oNyM5SAqIaPeXsBrwueSyw')
+                bot = telegram.Bot(token=api_token)
                 bot.sendMessage(chat_id=store_worker, text=f'Some thing with StoreTask go wrong') 
         except:
-            bot = telegram.Bot(token='5281891159:AAHq0q3fFn-b0oNyM5SAqIaPeXsBrwueSyw')
+            bot = telegram.Bot(token=api_token)
             bot.sendMessage(chat_id=store_worker, text=f'Some thing with ingredient go wrong') 
 
