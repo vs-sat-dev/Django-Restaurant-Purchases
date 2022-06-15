@@ -31,7 +31,7 @@ if __name__ == '__main__':
     job_minute = jq.run_repeating(callback_minute, interval=5)
 
     #updater.start_polling()
-    updater.start_webhook(listen="0.0.0.0",
+    updater.start_webhook(listen="127.0.0.1",
                        port=8443,
                        url_path=api_token)
     updater.bot.setWebhook(f'https://134.122.43.197:8443/{api_token}')
