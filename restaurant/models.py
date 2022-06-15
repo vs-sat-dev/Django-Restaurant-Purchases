@@ -58,4 +58,3 @@ STORE_CHOICES = (
 class StoreTask(models.Model):
     ingredient = models.ForeignKey(Ingridient, on_delete=models.CASCADE)
     quantity = models.FloatField()
-
