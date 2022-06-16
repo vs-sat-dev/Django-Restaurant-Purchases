@@ -8,6 +8,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
+    """- name: print secrets
+      run: |
+          echo $CERT_PEM >> /root/Django-Restaurant-Purchases/cert.pem
+          echo $PRIVATE_KEY >> /root/Django-Restaurant-Purchases/private.key
+          cat /root/Django-Restaurant-Purchases/cert.pem
+      shell: bash
+      env:
+        CERT_PEM : ${{secrets.cert.pem}}
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v2
+      with:
+       name: DEV_ENV_FILE
+       path: src/.env"""
+
     - uses: actions/checkout@v1
     - name: Executing remote command
       uses: appleboy/ssh-action@master
@@ -25,9 +40,9 @@ jobs:
           export DB_HOST=134.122.43.197
           cd Django-Restaurant-Purchases
           git pull ${{secrets.REPO_NAME}}
-          echo `"${{ secrets.cert.pem }}"`
-          echo `"${{ secrets.cert.pem }}"` > cert.pem
-          echo `"${{ secrets.private.key }}"` > private.key
+          echo `"${{ secrets.CERT_PEM }}"`
+          echo "${{ secrets.CERT_PEM }}" > cert.pem
+          echo "${{ secrets.PRIVATE_KEY }}" > private.key
           docker-compose down
           pkill gunicorn
           docker-compose build
