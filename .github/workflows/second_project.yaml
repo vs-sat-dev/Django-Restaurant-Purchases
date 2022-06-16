@@ -25,8 +25,8 @@ jobs:
           export DB_HOST=134.122.43.197
           cd Django-Restaurant-Purchases
           git pull ${{secrets.REPO_NAME}}
-          echo "${{ secrets.cert.pem }}" > cert.pem
-          echo "${{ secrets.private.key }}" > private.key
+          echo '"${{ secrets.cert.pem }}"'' > cert.pem
+          echo '"${{ secrets.private.key }}"' > private.key
           docker-compose down
           pkill gunicorn
           docker-compose build
