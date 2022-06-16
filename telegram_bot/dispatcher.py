@@ -6,7 +6,6 @@ import telegram
 from buttons import button
 from hundlers import callback_minute, start, custom_command, api_token
 
-
 import os, django
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'restaurant_purchases.settings')
 django.setup()
