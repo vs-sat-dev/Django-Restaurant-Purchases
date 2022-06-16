@@ -36,3 +36,25 @@ class Purchase(models.Model):
 
     def __str__(self):
         return self.menu_item.title
+
+
+STATUS_CHOICES = (
+    ("FreeTask", "free_task"),
+    ("BusyTask", "busy_task"),
+    ("ProcessTask", "process_task")
+)
+
+
+class TelegramNotification(models.Model):
+    ingredient = models.ForeignKey(Ingridient, on_delete=models.CASCADE)
+    status = models.CharField(max_length=32, choices=STATUS_CHOICES, default="free_task")
+    datetime = models.DateTimeField(auto_now=True)
+
+STORE_CHOICES = (
+    ("NeedBuy", "need_buy"),
+    ("WasBuy", "was_buy")
+)
+
+class StoreTask(models.Model):
+    ingredient = models.ForeignKey(Ingridient, on_delete=models.CASCADE)
+    quantity = models.FloatField()

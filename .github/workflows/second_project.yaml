@@ -8,6 +8,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
     - uses: actions/checkout@v1
     - name: Executing remote command
       uses: appleboy/ssh-action@master
@@ -23,13 +24,12 @@ jobs:
           export SECRET_KEY="${{ secrets.SECRET_KEY }}"
           export DB_PASSWORD=${{ secrets.DB_PASSWORD }}
           export DB_HOST=134.122.43.197
-          source venv/bin/activate
           cd Django-Restaurant-Purchases
           git pull ${{secrets.REPO_NAME}}
           docker-compose down
           pkill gunicorn
           docker-compose build
-          docker-compose up -d
+          docker-compose up
           #python3 manage.py makemigrations
           #python3 manage.py migrate
           #pkill gunicorn

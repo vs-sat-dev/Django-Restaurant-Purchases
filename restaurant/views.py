@@ -5,8 +5,13 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.urls import reverse
 from django.utils.timezone import now, timedelta
+from django.middleware import csrf
+import telegram
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup
+import requests
+import json
 
-from .models import Ingridient, MenuItem, RecipeRequirement, Purchase
+from .models import Ingridient, MenuItem, RecipeRequirement, Purchase, TelegramNotification
 from .forms import IngridientForm, MenuItemForm, RecipeRequirementForm
 
 
@@ -146,6 +151,18 @@ class MenuItemBuy(DetailView):
                 for i in range(len(ingridient_dict)):
                     ingridient_dict['ingridients'][i].quantity = round(ingridient_dict['ingridients'][i].quantity - ingridient_dict['quantities'][i], 1)
                     ingridient_dict['ingridients'][i].save()
+                
+                """for tn in TelegramNotification.objects.all():
+                    tn.delete()"""
+                
+                threshold = 100
+                for recipe_requirement in RecipeRequirement.objects.all():
+                    if recipe_requirement.quantity*threshold > recipe_requirement.ingridient.quantity:
+                        try:
+                            tn = TelegramNotification.objects.get(ingredient=recipe_requirement.ingridient)
+                        except:
+                            TelegramNotification.objects.create(ingredient=recipe_requirement.ingridient)
+
         
         return redirect('restaurant:menu-item-list')
 
@@ -162,6 +179,17 @@ class IngridientUpdate(UpdateView):
     template_name = 'ingridient-update.html'
     form_class = IngridientForm
     model = Ingridient
+
+    def post(self, request, *args, **kwargs):
+        print('request ', request.POST.dict())
+        tns = TelegramNotification.objects.filter(status=2)
+        for tn in tns:
+            if tn.ingredient.name == request.POST.dict()['name']:
+                bot = telegram.Bot(token='5281891159:AAHq0q3fFn-b0oNyM5SAqIaPeXsBrwueSyw')
+                bot.sendMessage(chat_id='241630970', 
+                    text=f'The {request.POST.dict()["name"]} was bouth. Quantity={request.POST.dict()["quantity"]}.')
+                tn.delete()
+        return super().post(request, args, kwargs)
     
     def get_success_url(self):
         view_name = 'update_mymodel'

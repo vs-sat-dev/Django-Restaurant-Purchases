@@ -1,5 +1,6 @@
 from django.urls import path
 from django.views.generic import TemplateView
+from django.views.decorators.csrf import csrf_exempt
 
 from .views import (
     IngridientList, MenuItemList, MenuItemDetail, RecipeRequirementList, MenuItemBuy,
@@ -15,7 +16,7 @@ urlpatterns = [
     path('ingridient-delete/<int:pk>/', IngridientDelete.as_view(), name='ingridient-delete'),
     path('menu-item-list/', MenuItemList.as_view(), name='menu-item-list'),
     path('menu-item-detail/<int:pk>/', MenuItemDetail.as_view(), name='menu-item-detail'),
-    path('menu-item-buy/<int:pk>/', MenuItemBuy.as_view(), name='menu-item-buy'),
+    path('menu-item-buy/<int:pk>/', csrf_exempt(MenuItemBuy.as_view()), name='menu-item-buy'),
     path('recipe-requirement-list/', RecipeRequirementList.as_view(), name='recipe-requirement-list'),
     path('purchase-list/', PurchaseList.as_view(), name='purchase-list'),
     path('purchase-cost/', PurchaseCost.as_view(), name='purchase-cost'),

@@ -30,10 +30,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['restaurant-purchases.herokuapp.com', '127.0.0.1', 
                 '68.183.201.244', '134.122.43.197', '0.0.0.0', 'localhost']
+CSRF_TRUSTED_ORIGINS = ['http://restaurant-purchases.herokuapp.com', 'http://127.0.0.1', 
+                'http://68.183.201.244', 'http://134.122.43.197', 'http://0.0.0.0', 'http://localhost',
+                'http://api.telegram.org']
 
 # Application definition
 
@@ -51,6 +54,7 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'restaurant.apps.RestaurantConfig',
     'home.apps.HomeConfig',
+    #'telegram_bot.apps.TelegramBotConfig',
 ]
 
 MIDDLEWARE = [
