@@ -17,7 +17,6 @@ for fls in os.listdir():
     print('content:\n', f.read())
     break
 
-
 from restaurant.models import Ingridient, TelegramNotification
 
 logging.basicConfig(
