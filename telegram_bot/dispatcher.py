@@ -31,6 +31,10 @@ if __name__ == '__main__':
     updater.dispatcher.add_handler(CallbackQueryHandler(button))
     updater.dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, custom_command))
 
+    tns = TelegramNotification.objects.all()
+    for tn in tns:
+        tn.delete()
+
     jq = updater.job_queue
     job_minute = jq.run_repeating(callback_minute, interval=5)
 
