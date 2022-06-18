@@ -23,6 +23,8 @@ services:
     image: postgres:14.3-alpine
     hostname: pgdb
     restart: always
+    extra_hosts:
+      - host.docker.internal
     environment:
       - DATABASE_URL=pgsql://postgres:1234567890@mydb:5432
       - POSTGRES_DB=mydb
