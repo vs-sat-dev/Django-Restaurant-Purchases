@@ -42,7 +42,7 @@ if __name__ == '__main__':
     updater.start_webhook(listen="0.0.0.0",
                        port=5000,
                        url_path=api_token, cert='fullchain.pem',#cert=open('nginx/cert.pem', 'rb'),
-                       webhook_url=f'https://134.122.43.197:8443/{api_token}')
+                       webhook_url=f'https://chupakabra.monster:8443/{api_token}')
     #updater.bot.setWebhook(f'https://134.122.43.197:8443/{api_token}')
 
     #updater.start_webhook(listen='0.0.0.0', port=8443, url_path='TOKEN',
