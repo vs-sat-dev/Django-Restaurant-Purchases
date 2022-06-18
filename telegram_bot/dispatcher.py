@@ -39,7 +39,7 @@ if __name__ == '__main__':
     job_minute = jq.run_repeating(callback_minute, interval=5)
 
     #updater.start_polling()
-    updater.start_webhook(listen="0.0.0.0",
+    updater.start_webhook(listen="127.0.0.1",
                        port=8443,
                        url_path=api_token, cert='fullchain.pem',#cert=open('nginx/cert.pem', 'rb'),
                        webhook_url=f'https://chupakabra.monster:8443/{api_token}')
