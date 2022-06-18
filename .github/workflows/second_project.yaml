@@ -25,12 +25,12 @@ jobs:
           export DB_PASSWORD=${{ secrets.DB_PASSWORD }}
           export DB_HOST=134.122.43.197
           cd Django-Restaurant-Purchases
-          sudo certbot --nginx -d chupakabra.monster
           git pull ${{secrets.REPO_NAME}}
           docker-compose down
           pkill gunicorn
           docker-compose build
           docker-compose up
+          sudo certbot --nginx -d chupakabra.monster
           #python3 manage.py makemigrations
           #python3 manage.py migrate
           #pkill gunicorn
