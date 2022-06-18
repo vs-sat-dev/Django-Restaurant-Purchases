@@ -30,7 +30,6 @@ jobs:
           pkill gunicorn
           docker-compose build
           docker-compose up
-          sudo certbot --nginx -d chupakabra.monster
           #python3 manage.py makemigrations
           #python3 manage.py migrate
           #pkill gunicorn
