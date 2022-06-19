@@ -39,10 +39,14 @@ if __name__ == '__main__':
     job_minute = jq.run_repeating(callback_minute, interval=5)
 
     #updater.start_polling()
-    updater.start_webhook(listen="0.0.0.0",
-                       port=5000,
-                       url_path=api_token, cert='fullchain.pem',# key='privkey.pem',
-                       webhook_url=f'https://chupakabra.monster/{api_token}')
+    try:
+        updater.start_webhook(listen="0.0.0.0",
+                        port=5000,
+                        url_path=api_token, cert='fullchain.pem',# key='privkey.pem',
+                        webhook_url=f'https://chupakabra.monster/{api_token}')
+    except Exception as e:
+        with open('tlog.txt', 'w') as f:
+            f.write(e)
     #updater.bot.setWebhook(f'https://chupakabra.monster/{api_token}', certificate=open('fullchain.pem', 'rb'))
     #updater.bot.setWebhook(f'https://134.122.43.197:8443/{api_token}')
 
