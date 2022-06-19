@@ -43,7 +43,7 @@ if __name__ == '__main__':
         updater.start_webhook(listen="0.0.0.0",
                         port=5000,
                         url_path=api_token,# cert='fullchain.pem',# key='privkey.pem',
-                        webhook_url=f'https://chupakabra.monster/{api_token}')
+                        webhook_url=f'https://134.122.43.197/{api_token}')
         with open('tbot.info', 'w') as f:
             f.write(str(telegram.Bot(api_token).get_webhook_info()))
     except Exception as e:
