@@ -45,7 +45,7 @@ if __name__ == '__main__':
                         url_path=api_token,# cert='fullchain.pem',# key='privkey.pem',
                         webhook_url=f'https://chupakabra.monster/{api_token}')
         with open('tbot.info', 'w') as f:
-            f.write(telegram.Bot(api_token).get_webhook_info())
+            f.write(str(telegram.Bot(api_token).get_webhook_info()))
     except Exception as e:
         with open('tlog.txt', 'w') as f:
             f.write(e)
