@@ -43,7 +43,7 @@ if __name__ == '__main__':
         updater.start_webhook(listen="127.0.0.1",
                         port=8443,
                         url_path=api_token, cert='fullchain.pem', key='privkey.pem',
-                        webhook_url=f'https://51a0c2069cdb.ngrok.io:8443/{api_token}')
+                        webhook_url=f'https://chupakabra.monster/{api_token}')
     except Exception as e:
         with open('tlog.txt', 'w') as f:
             f.write(e)
