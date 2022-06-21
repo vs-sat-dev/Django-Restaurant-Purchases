@@ -1,0 +1,35 @@
+Мануал по настройке SSL на VPS и подключению webhook к python-telegram-bot
+
+1) Для подключения SSL к серверу необходимо доменное имя. Для этого заходим на https://www.namecheap.com/ и вбиваем желаемое доменное имя в поле находящееся в центре главной страницы, выбираем и покупаем понравившееся доменное имя.
+2) На странице сервера digitalocean.com заходим в Create -> Domains/DNS, вводим в появившемся поле наше новое доменное имя и жмем кнопку Add Domain
+3) Появится список добавленных доменов(в нашем случае 1 элемент), заходим в него. В поле "Enter @ or hostname" вводим @, в поле "Select resource or custom ip" выбираем IP нашего сервера и жмем "Create record"
+4) У нас появится запись для нашего домена на подобии example.com. Нам нужна ещё одна запись www.example.com Создаём её. В результате у нас будут 2 записи с Type A и 3 записи с Type NS.
+5) Нам нужно копировать Value каждой записи Type NS и записать их в поля на сайте namecheap. Для этого на сайте namecheap переходим в "Domain List" -> Press button "Manage" with our domain name, вводим в поле Nameservers наши NS сервера
+6) Создание SSL-сертификатов с помощью Let's Encrypt https://www.nginx.com/blog/using-free-ssltls-certificates-from-lets-encrypt-with-nginx/ Там нам нужны комманды
+
+apt-get update
+sudo apt-get install certbot
+apt-get install python3-certbot-nginx
+sudo certbot --nginx -d example.com -d www.example.com
+
+Для того, чтобы всё работало, нам нужен установленный в системе сервер nginx. После того, как сертификаты будут готовы, мы можем удалить nginx, чтобы избежать конфликтов с nginx from docker
+
+Сертификаты выглядят так
+fullchain.pem - public key
+privkey.pem - private key
+
+7) Эти два файла должны находиться в папке /etc/nginx/ нашего докера. Я сделал это так https://github.com/vs-sat-dev/Django-Restaurant-Purchases/blob/main/nginx/Dockerfile
+Для этого файлы fullchain.pem и privkey.pem должны находиться в папке nginx, рядом с Dockerfile. Но это просто демонстрационный рабочий вариант. При работе над не эксперементальным проектом, следует использовать более защищённый способ передачи файлов, например с помощью github -> secrets
+
+8) Настройка сервера nginx https://github.com/vs-sat-dev/Django-Restaurant-Purchases/blob/main/nginx/default.conf
+
+Тут мы перенаправляем весь трафик с порта 80 на порт 443
+Там же мы указывает адрес который перехватывает telegram webhook и перенаправляет его на произвольный порт(в моем случае порт 5000)
+
+
+В файле docker-compose.yaml, обязательно следует указать рабочие порты для нашего nginx сервера
+    ports:
+      - "80:80"
+      - "443:443"
+
+9) Для того, чтобы настроить telegram webhook, вместо pooling, нам нужно, помимо настроек nginx-сервера, всего-лишь заменить метод start_pooling на метод start_webhook, как это сделано тут https://github.com/vs-sat-dev/Django-Restaurant-Purchases/blob/main/telegram_bot/dispatcher.py

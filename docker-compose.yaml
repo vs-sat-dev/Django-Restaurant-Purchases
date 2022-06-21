@@ -7,6 +7,7 @@ services:
       - .:/usr/src/app
     ports: 
       - "8000:8000"
+      - "5000:5000"
     depends_on: 
       - pgdb
   
@@ -16,6 +17,7 @@ services:
       - static:/usr/src/app/static
     ports:
       - "80:80"
+      - "443:443"
     depends_on:
       - gunicorn
   
