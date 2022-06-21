@@ -5,7 +5,7 @@ services:
     #command: gunicorn restaurant_purchases.wsgi:application --bind 0.0.0.0:8000
     volumes: 
       - .:/usr/src/app
-      - static:/usr/src/app/static
+      - ./static:/usr/src/app/static
     ports: 
       - "8000:8000"
       - "5000:5000"
@@ -15,7 +15,7 @@ services:
   nginx:
     build: ./nginx
     volumes:
-      - static:/usr/src/app/static
+      - ./static:/usr/src/app/static
     ports:
       - "80:80"
       - "443:443"
