@@ -20,7 +20,7 @@ services:
       - gunicorn
   
   pgdb:
-    image: postgres:14.3-alpine
+    image: postgres:14.3
     hostname: pgdb
     restart: always
     environment:
