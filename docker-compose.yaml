@@ -24,6 +24,7 @@ services:
       - "443:443"
     depends_on:
       - gunicorn
+      - flower
   
   pgdb:
     image: postgres:14.3
@@ -42,6 +43,14 @@ services:
   
   redis:
     image: redis:6
+  
+  flower:
+    image: mher/flower:0.9.5
+    command: ['flower', '--broker=redis://redis:6379', '--port=5555']
+    expose:  # new
+      - 5555
+    depends_on:
+      - redis
 
 volumes:
   pgbdata: null
