@@ -44,6 +44,7 @@ services:
     image: redis:6
 
   celery_worker:
+    image: celery-image
     command: celery -A restaurant_purchases worker -l INFO
     #command: /celery_worker
     volumes:
