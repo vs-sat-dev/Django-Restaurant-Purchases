@@ -8,10 +8,10 @@ from time import sleep
 
 @shared_task
 def test_task():
-    with open('file.txt', 'w') as file:
-        file.write('LogStart\n')
-        sleep(100)
-        file.write('LogEnd')
+    with open('file2.txt', 'w') as file:
+        file.write('LogStartWork?     ')
+        sleep(60)
+        file.write('LogEndWork')
     """with open('file.txt', 'w') as file:
         file.write('LogStart')
         #sleep(10)
