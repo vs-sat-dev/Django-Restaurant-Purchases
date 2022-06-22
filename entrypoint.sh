@@ -2,8 +2,8 @@
 python manage.py makemigrations
 python manage.py migrate
 python telegram_bot/dispatcher.py &
-celery -A restaurant_purchases worker -l INFO &
-celery -A restaurant_purchases flower --port=5555 &
+celery -A restaurant_purchases worker --loglevel=info &
+celery -A restaurant_purchases flower --port=5555 --loglevel=info &
 #celery --app=restaurant_purchases.celery:app flower
 #celery flower --url_prefix=flower &
 #python manage.py collectstatic
