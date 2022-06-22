@@ -4,7 +4,6 @@ from django.core.mail import EmailMessage
 from django.core.mail import send_mail
 
 from time import sleep
-from restaurant_purchases.celery import app
 
 
 @shared_task
