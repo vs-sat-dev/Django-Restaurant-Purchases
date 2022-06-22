@@ -6,6 +6,7 @@ COPY requirements.txt /usr/src/app
 RUN pip install -r requirements.txt
 RUN pip install Redis
 RUN pip install eventlet
+RUN pip install flower
 
 #COPY celery_worker /usr/src/app
 #RUN sed -i 's/\r$//g' celery_worker
