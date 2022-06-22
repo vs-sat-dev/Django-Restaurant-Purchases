@@ -48,7 +48,7 @@ services:
     image: django_celery_example_celery_worker
     command: /start-celeryworker
     volumes:
-      - .:/app
+      - .:/celery_app
     depends_on:
       - redis
       - pgdb
