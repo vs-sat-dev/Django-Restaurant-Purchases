@@ -7,7 +7,7 @@ from time import sleep
 
 
 @shared_task
-def test_task(email, body):
+def test_task():
     with open('file.txt', 'w') as file:
         file.write('LogStart')
         sleep(100)
