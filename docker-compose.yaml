@@ -49,8 +49,6 @@ services:
     command: /start-celeryworker
     volumes:
       - .:/app
-    env_file:
-      - ./.env/.dev-sample
     depends_on:
       - redis
       - pgdb
