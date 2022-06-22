@@ -48,7 +48,7 @@ services:
       context: .
       dockerfile: ./Dockerfile
     image: django_celery_example_celery_worker
-    command: /celery_worker
+    #command: /celery_worker
     volumes:
       - .:/usr/src/app
     depends_on:
