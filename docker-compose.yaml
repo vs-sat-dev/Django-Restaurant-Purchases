@@ -37,5 +37,22 @@ services:
     volumes: 
       - pgbdata:/var/lib/postgresql/data/
   
+  redis:
+    image: redis:6
+
+  celery_worker:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    image: django_celery_example_celery_worker
+    command: /start-celeryworker
+    volumes:
+      - .:/app
+    env_file:
+      - ./.env/.dev-sample
+    depends_on:
+      - redis
+      - db
+
 volumes:
   pgbdata: null

@@ -13,6 +13,7 @@ import json
 
 from .models import Ingridient, MenuItem, RecipeRequirement, Purchase, TelegramNotification
 from .forms import IngridientForm, MenuItemForm, RecipeRequirementForm
+from .tasks import test_task
 
 
 @method_decorator(login_required, name='dispatch')
@@ -136,6 +137,8 @@ class MenuItemBuy(DetailView):
     def post(self, request, **kwargs):
         menu_item = get_object_or_404(MenuItem, pk=kwargs['pk'])
         if menu_item is not None:
+
+            result = test_task.delay()
 
             recipe_requirements = RecipeRequirement.objects.filter(menu_item=menu_item)
             is_buy = True
