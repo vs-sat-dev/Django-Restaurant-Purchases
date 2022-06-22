@@ -43,5 +43,16 @@ services:
   redis:
     image: redis:6
 
+  celery_worker:
+    build: ./celery_worker
+    command: celery -A restaurant_purchases worker -l INFO
+    #command: /celery_worker
+    volumes:
+      - .:/usr/src/app
+    depends_on:
+      - redis
+      - pgdb
+      - gunicorn
+
 volumes:
   pgbdata: null
