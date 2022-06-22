@@ -1,6 +1,8 @@
 services:
   gunicorn:
-    build: .
+    build:
+      context: .
+      dockerfile: ./Dockerfile
     container_name: gunicorn
     #command: gunicorn restaurant_purchases.wsgi:application --bind 0.0.0.0:8000
     volumes: 
@@ -48,7 +50,7 @@ services:
     image: django_celery_example_celery_worker
     command: /start-celeryworker
     volumes:
-      - .:/celery_app
+      - .:/usr/src/app
     depends_on:
       - redis
       - pgdb
