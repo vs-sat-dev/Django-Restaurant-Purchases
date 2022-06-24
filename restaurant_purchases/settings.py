@@ -37,6 +37,7 @@ ALLOWED_HOSTS = ['restaurant-purchases.herokuapp.com', '127.0.0.1',
 CSRF_TRUSTED_ORIGINS = ['http://restaurant-purchases.herokuapp.com', 'http://127.0.0.1', 
                 'http://68.183.201.244', 'http://134.122.43.197', 'http://0.0.0.0', 'http://localhost',
                 'http://api.telegram.org', 'https://chupakabra.monster']
+SECURE_HSTS_SECONDS = 60
 
 # Application definition
 
