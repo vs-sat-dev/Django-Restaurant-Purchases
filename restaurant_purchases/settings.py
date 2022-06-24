@@ -40,7 +40,7 @@ CSRF_TRUSTED_ORIGINS = ['http://restaurant-purchases.herokuapp.com', 'http://127
 
 SECURE_HSTS_SECONDS = 60
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-SECURE_SSL_REDIRECT = True
+SECURE_SSL_REDIRECT = False
 # Application definition
 
 INSTALLED_APPS = [
