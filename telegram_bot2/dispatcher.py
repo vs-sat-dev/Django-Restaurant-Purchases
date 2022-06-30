@@ -27,6 +27,9 @@ logger = logging.getLogger(__name__)
 if __name__ == '__main__':
     updater = Updater(api_token)
 
+    bot = telegram.Bot(token=api_token)
+    bot.sendMessage(chat_id='241630970', text=f'The bot 2 was started')
+
     updater.dispatcher.add_handler(CommandHandler('start', start))
     updater.dispatcher.add_handler(CallbackQueryHandler(button))
     updater.dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, custom_command))
