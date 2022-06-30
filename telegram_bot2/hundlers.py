@@ -69,7 +69,7 @@ def callback_minute(context: telegram.ext.CallbackContext):
         context.bot_data['status'] = 'idle'
 
     ingredient_status = TelegramNotification.objects.filter(status='busy_task')
-    if len(ingredient_status) == 2:
+    if len(ingredient_status) == 1:
         tn = TelegramNotification.objects.filter(status='free_task').first()
         if tn:
             ingredient = tn.ingredient
