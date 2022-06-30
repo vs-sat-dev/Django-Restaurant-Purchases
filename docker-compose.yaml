@@ -30,11 +30,13 @@ services:
     image: postgres:14.3
     hostname: pgdb
     restart: always
-    environment:
-      - DATABASE_URL=pgsql://postgres:1234567890@mydb:5432
-      - POSTGRES_DB=mydb
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=1234567890
+    env_file:
+     - .pgdb_env
+    #environment:
+    #  - DATABASE_URL=pgsql://postgres:1234567890@mydb:5432
+    #  - POSTGRES_DB=mydb
+    #  - POSTGRES_USER=postgres
+    #  - POSTGRES_PASSWORD=1234567890
     ports:
       - "5432:5432"
     container_name: pgdb
