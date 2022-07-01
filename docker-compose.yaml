@@ -44,16 +44,10 @@ services:
     volumes: 
       - pgbdata:/var/lib/postgresql/data/
   
-  postgresql_dev:
-    image: pansicheng/postgresql-dev
-    depends_on:
-      - pgdb
-  
   postgresql_client:
-    image: jbergknoff/postgresql-client
+    image: postgresql14-client
     depends_on:
       - pgdb
-      - postgresql_dev
   
   redis:
     image: redis:6
