@@ -44,8 +44,8 @@ services:
     volumes: 
       - pgbdata:/var/lib/postgresql/data/
   
-  postgresql_client:
-    image: postgresql14-client
+  pg_dump:
+    image: annixa/docker-pg_dump
     depends_on:
       - pgdb
   
