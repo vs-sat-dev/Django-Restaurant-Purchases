@@ -45,7 +45,7 @@ services:
       - pgbdata:/var/lib/postgresql/data/
   
   postgresql_dev:
-    image: adtile/postgresql-dev
+    image: pansicheng/postgresql-dev
     depends_on:
       - pgdb
   
