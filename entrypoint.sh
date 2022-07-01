@@ -1,6 +1,7 @@
 #!/bin/sh
 python manage.py makemigrations
 python manage.py migrate
+python manage.py dbbackup
 python telegram_bot/dispatcher.py &
 python telegram_bot2/dispatcher.py &
 celery -A restaurant_purchases worker -l INFO &

@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'restaurant.apps.RestaurantConfig',
     'home.apps.HomeConfig',
+    'dbbackup',
     #'telegram_bot.apps.TelegramBotConfig',
 ]
 
@@ -73,6 +74,11 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
+
+DBBACKUP_STORAGE = "django.core.files.storage.FileSystemStorage"
+DBBACKUP_STORAGE_OPTIONS = {
+    "location": f"{BASE_DIR}/backups/"
+}
 
 ROOT_URLCONF = 'restaurant_purchases.urls'
 
