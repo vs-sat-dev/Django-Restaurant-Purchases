@@ -44,11 +44,6 @@ services:
     volumes: 
       - pgbdata:/var/lib/postgresql/data/
   
-  pg_dump:
-    image: annixa/docker-pg_dump
-    depends_on:
-      - pgdb
-  
   redis:
     image: redis:6
   
