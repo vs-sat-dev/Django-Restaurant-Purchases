@@ -10,11 +10,11 @@ import os, django
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'restaurant_purchases.settings')
 django.setup()
 
-for fls in os.listdir():
+"""for fls in os.listdir():
     print('File: ', fls)
     f = open(fls, 'rb')
     print('content:\n', f.read())
-    break
+    break"""
 
 from restaurant.models import Ingridient, TelegramNotification
 
