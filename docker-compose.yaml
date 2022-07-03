@@ -14,8 +14,6 @@ services:
     #  - "5001:5001"
     depends_on: 
       - pgdb
-      - redis
-      - celery
   
   celery:
     build: .
@@ -25,7 +23,8 @@ services:
     volumes: 
       - .:/usr/src/app
     depends_on:
-      - python
+      - gunicorn
+      - redis
   
   telegram_bot1:
     build: .
@@ -37,7 +36,7 @@ services:
     volumes: 
       - .:/usr/src/app
     depends_on:
-      - python
+      - gunicorn
   
   telegram_bot2:
     build: .
@@ -49,7 +48,7 @@ services:
     volumes: 
       - .:/usr/src/app
     depends_on:
-      - python
+      - gunicorn
   
   nginx:
     build: ./nginx
