@@ -10,6 +10,6 @@ python manage.py migrate
 #celery --app=restaurant_purchases.celery:app flower
 #celery flower --url_prefix=flower &
 #python manage.py collectstatic
-#gunicorn restaurant_purchases.wsgi:application --bind 0.0.0.0:8000
+gunicorn restaurant_purchases.wsgi:application --bind 0.0.0.0:8000
 #gunicorn restaurant_purchases.wsgi:application --bind 68.183.201.244:8000
 
