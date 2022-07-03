@@ -1,68 +1,20 @@
 services:
-  python:
+  gunicorn:
     build: .
       #context: .
       #dockerfile: ./Dockerfile
-    container_name: python
+    container_name: gunicorn
     #command: gunicorn restaurant_purchases.wsgi:application --bind 0.0.0.0:8000
     volumes: 
       - .:/usr/src/app
       - ./static:/usr/src/app/static
-    tty: true
-    #ports: 
-    #  - "8000:8000"
-    #  - "5000:5000"
-    #  - "5001:5001"
+    ports: 
+      - "8000:8000"
+      - "5000:5000"
+      - "5001:5001"
     depends_on: 
       - pgdb
       - redis
-  
-  gunicorn:
-    build: .
-    container_name: gunicorn
-    ports: 
-      - "8000:8000"
-    restart: always
-    command: "gunicorn restaurant_purchases.wsgi:application --bind 0.0.0.0:8000"
-    volumes: 
-      - .:/usr/src/app
-    depends_on:
-      - python
-      - celery
-  
-  celery:
-    build: .
-    container_name: celery
-    command: celery -A restaurant_purchases worker -l INFO
-    restart: always
-    volumes: 
-      - .:/usr/src/app
-    depends_on:
-      - python
-  
-  telegram_bot1:
-    build: .
-    container_name: telegram_bot1
-    command: python telegram_bot/dispatcher.py
-    ports:
-      - "5000:5000"
-    restart: always
-    volumes: 
-      - .:/usr/src/app
-    depends_on:
-      - python
-  
-  telegram_bot2:
-    build: .
-    container_name: telegram_bot2
-    command: python telegram_bot2/dispatcher.py
-    ports:
-      - "5001:5001"
-    restart: always
-    volumes: 
-      - .:/usr/src/app
-    depends_on:
-      - python
   
   nginx:
     build: ./nginx
@@ -71,7 +23,6 @@ services:
     ports:
       - "80:80"
       - "443:443"
-    restart: always
     depends_on:
       - gunicorn
       - flower
