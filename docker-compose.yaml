@@ -21,6 +21,7 @@ services:
     container_name: gunicorn
     ports: 
       - "8000:8000"
+    restart: always
     command: gunicorn restaurant_purchases.wsgi:application --bind 0.0.0.0:8000
     depends_on:
       - python
@@ -30,6 +31,7 @@ services:
     build: .
     container_name: celery
     command: celery -A restaurant_purchases worker -l INFO &
+    restart: always
     depends_on:
       - python
   
@@ -39,6 +41,7 @@ services:
     command: python telegram_bot/dispatcher.py &
     ports:
       - "5000:5000"
+    restart: always
     depends_on:
       - python
   
@@ -48,6 +51,7 @@ services:
     command: python telegram_bot2/dispatcher.py &
     ports:
       - "5001:5001"
+    restart: always
     depends_on:
       - python
   
@@ -58,6 +62,7 @@ services:
     ports:
       - "80:80"
       - "443:443"
+    restart: always
     depends_on:
       - gunicorn
       - flower
