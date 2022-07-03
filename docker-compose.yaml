@@ -1,19 +1,34 @@
 services:
-  gunicorn:
+  python:
     build: .
       #context: .
       #dockerfile: ./Dockerfile
-    container_name: gunicorn
+    container_name: python
     #command: gunicorn restaurant_purchases.wsgi:application --bind 0.0.0.0:8000
     volumes: 
       - .:/usr/src/app
       - ./static:/usr/src/app/static
+    tty: true
     ports: 
       - "8000:8000"
     #  - "5000:5000"
     #  - "5001:5001"
     depends_on: 
       - pgdb
+      - redis
+  
+  gunicorn:
+    build: .
+    container_name: gunicorn
+    ports: 
+      - "8000:8000"
+    restart: always
+    command: "gunicorn restaurant_purchases.wsgi:application --bind 0.0.0.0:8000"
+    volumes: 
+      - .:/usr/src/app
+    depends_on:
+      - python
+      - celery
   
   celery:
     build: .
@@ -23,8 +38,7 @@ services:
     volumes: 
       - .:/usr/src/app
     depends_on:
-      - gunicorn
-      - redis
+      - python
   
   telegram_bot1:
     build: .
@@ -36,7 +50,7 @@ services:
     volumes: 
       - .:/usr/src/app
     depends_on:
-      - gunicorn
+      - python
   
   telegram_bot2:
     build: .
@@ -48,7 +62,7 @@ services:
     volumes: 
       - .:/usr/src/app
     depends_on:
-      - gunicorn
+      - python
   
   nginx:
     build: ./nginx
