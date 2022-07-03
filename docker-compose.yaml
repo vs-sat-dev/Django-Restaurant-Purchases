@@ -23,6 +23,8 @@ services:
       - "8000:8000"
     restart: always
     command: gunicorn restaurant_purchases.wsgi:application --bind 0.0.0.0:8000
+    volumes: 
+      - .:/usr/src/app
     depends_on:
       - python
       - celery
@@ -32,6 +34,8 @@ services:
     container_name: celery
     command: celery -A restaurant_purchases worker -l INFO &
     restart: always
+    volumes: 
+      - .:/usr/src/app
     depends_on:
       - python
   
@@ -42,6 +46,8 @@ services:
     ports:
       - "5000:5000"
     restart: always
+    volumes: 
+      - .:/usr/src/app
     depends_on:
       - python
   
@@ -52,6 +58,8 @@ services:
     ports:
       - "5001:5001"
     restart: always
+    volumes: 
+      - .:/usr/src/app
     depends_on:
       - python
   
