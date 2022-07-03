@@ -8,6 +8,7 @@ services:
     volumes: 
       - .:/usr/src/app
       - ./static:/usr/src/app/static
+    tty: true
     #ports: 
     #  - "8000:8000"
     #  - "5000:5000"
@@ -25,7 +26,6 @@ services:
     command: gunicorn restaurant_purchases.wsgi:application --bind 0.0.0.0:8000
     volumes: 
       - .:/usr/src/app
-    tty: true
     depends_on:
       - python
       - celery
@@ -37,7 +37,6 @@ services:
     restart: always
     volumes: 
       - .:/usr/src/app
-    tty: true
     depends_on:
       - python
   
@@ -50,7 +49,6 @@ services:
     restart: always
     volumes: 
       - .:/usr/src/app
-    tty: true
     depends_on:
       - python
   
@@ -63,7 +61,6 @@ services:
     restart: always
     volumes: 
       - .:/usr/src/app
-    tty: true
     depends_on:
       - python
   
