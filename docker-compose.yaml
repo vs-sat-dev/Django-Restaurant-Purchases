@@ -1,9 +1,9 @@
 services:
-  gunicorn:
+  python:
     build: .
       #context: .
       #dockerfile: ./Dockerfile
-    container_name: gunicorn
+    container_name: python
     #command: gunicorn restaurant_purchases.wsgi:application --bind 0.0.0.0:8000
     volumes: 
       - .:/usr/src/app
@@ -15,6 +15,37 @@ services:
     depends_on: 
       - pgdb
       - redis
+  
+  gunicorn:
+    build: .
+    container_name: gunicorn
+    ports: 
+      - "8000:8000"
+    command: gunicorn restaurant_purchases.wsgi:application --bind 0.0.0.0:8000
+    depends_on:
+      - python
+      - celery
+  
+  celery:
+    build: .
+    container_name: celery
+    command: celery -A restaurant_purchases worker -l INFO &
+    depends_on:
+      - python
+  
+  telegram_bot1:
+    build: .
+    container_name: telegram_bot1
+    command: python telegram_bot/dispatcher.py &
+    depends_on:
+      - python
+  
+  telegram_bot2:
+    build: .
+    container_name: telegram_bot2
+    command: python telegram_bot2/dispatcher.py &
+    depends_on:
+      - python
   
   nginx:
     build: ./nginx
