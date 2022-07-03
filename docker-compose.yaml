@@ -8,10 +8,10 @@ services:
     volumes: 
       - .:/usr/src/app
       - ./static:/usr/src/app/static
-    ports: 
-      - "8000:8000"
-      - "5000:5000"
-      - "5001:5001"
+    #ports: 
+    #  - "8000:8000"
+    #  - "5000:5000"
+    #  - "5001:5001"
     depends_on: 
       - pgdb
       - redis
@@ -37,6 +37,8 @@ services:
     build: .
     container_name: telegram_bot1
     command: python telegram_bot/dispatcher.py &
+    ports:
+      - "5000:5000"
     depends_on:
       - python
   
@@ -44,6 +46,8 @@ services:
     build: .
     container_name: telegram_bot2
     command: python telegram_bot2/dispatcher.py &
+    ports:
+      - "5001:5001"
     depends_on:
       - python
   
