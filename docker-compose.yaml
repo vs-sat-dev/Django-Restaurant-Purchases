@@ -32,7 +32,7 @@ services:
   celery:
     build: .
     container_name: celery
-    command: celery -A restaurant_purchases worker -l INFO &
+    command: celery -A restaurant_purchases worker -l INFO
     restart: always
     volumes: 
       - .:/usr/src/app
@@ -42,7 +42,7 @@ services:
   telegram_bot1:
     build: .
     container_name: telegram_bot1
-    command: python telegram_bot/dispatcher.py &
+    command: python telegram_bot/dispatcher.py
     ports:
       - "5000:5000"
     restart: always
@@ -54,7 +54,7 @@ services:
   telegram_bot2:
     build: .
     container_name: telegram_bot2
-    command: python telegram_bot2/dispatcher.py &
+    command: python telegram_bot2/dispatcher.py
     ports:
       - "5001:5001"
     restart: always
