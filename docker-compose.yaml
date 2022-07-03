@@ -9,8 +9,8 @@ services:
       - .:/usr/src/app
       - ./static:/usr/src/app/static
     tty: true
-    ports: 
-      - "8000:8000"
+    #ports: 
+    #  - "8000:8000"
     #  - "5000:5000"
     #  - "5001:5001"
     depends_on: 
