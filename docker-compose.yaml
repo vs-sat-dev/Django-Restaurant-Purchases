@@ -4,7 +4,7 @@ services:
       #context: .
       #dockerfile: ./Dockerfile
     container_name: gunicorn
-    command: gunicorn restaurant_purchases.wsgi:application --bind 0.0.0.0:8000
+    command: gunicorn restaurant_purchases.wsgi:application --bind 0.0.0.0:8000 --daemon
     volumes: 
       - .:/usr/src/app
       - ./static:/usr/src/app/static
@@ -21,7 +21,7 @@ services:
       #context: .
       #dockerfile: ./Dockerfile
     container_name: telegram_bot1
-    command: python telegram_bot/dispatcher.py
+    command: python telegram_bot/dispatcher.py &
     volumes: 
       - .:/usr/src/app
       - ./static:/usr/src/app/static
@@ -38,7 +38,7 @@ services:
       #context: .
       #dockerfile: ./Dockerfile
     container_name: telegram_bot2
-    command: python telegram_bot2/dispatcher.py
+    command: python telegram_bot2/dispatcher.py &
     volumes: 
       - .:/usr/src/app
       - ./static:/usr/src/app/static
@@ -55,7 +55,7 @@ services:
       #context: .
       #dockerfile: ./Dockerfile
     container_name: celery
-    command: celery -A restaurant_purchases worker -l INFO
+    command: celery -A restaurant_purchases worker -l INFO &
     volumes: 
       - .:/usr/src/app
       - ./static:/usr/src/app/static
