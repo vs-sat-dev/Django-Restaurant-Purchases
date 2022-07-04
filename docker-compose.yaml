@@ -4,17 +4,69 @@ services:
       #context: .
       #dockerfile: ./Dockerfile
     container_name: gunicorn
-    #command: gunicorn restaurant_purchases.wsgi:application --bind 0.0.0.0:8000
+    command: gunicorn restaurant_purchases.wsgi:application --bind 0.0.0.0:8000
     volumes: 
       - .:/usr/src/app
       - ./static:/usr/src/app/static
     ports: 
       - "8000:8000"
-      - "5000:5000"
-      - "5001:5001"
+      #- "5000:5000"
+      #- "5001:5001"
     depends_on: 
       - pgdb
       - redis
+  
+  telegram_bot1:
+    build: .
+      #context: .
+      #dockerfile: ./Dockerfile
+    container_name: telegram_bot1
+    command: python telegram_bot/dispatcher.py
+    volumes: 
+      - .:/usr/src/app
+      - ./static:/usr/src/app/static
+    restart: always
+    ports: 
+      #- "8000:8000"
+      - "5000:5000"
+      #- "5001:5001"
+    depends_on: 
+      - gunicorn
+  
+  telegram_bot2:
+    build: .
+      #context: .
+      #dockerfile: ./Dockerfile
+    container_name: telegram_bot2
+    command: python telegram_bot2/dispatcher.py
+    volumes: 
+      - .:/usr/src/app
+      - ./static:/usr/src/app/static
+    restart: always
+    ports: 
+      #- "8000:8000"
+      #- "5000:5000"
+      - "5001:5001"
+    depends_on: 
+      - gunicorn
+  
+  celery:
+    build: .
+      #context: .
+      #dockerfile: ./Dockerfile
+    container_name: celery
+    command: celery -A restaurant_purchases worker -l INFO
+    volumes: 
+      - .:/usr/src/app
+      - ./static:/usr/src/app/static
+    restart: always
+    #ports: 
+      #- "8000:8000"
+      #- "5000:5000"
+      #- "5001:5001"
+    depends_on: 
+      - redis
+      - pgdb
   
   nginx:
     build: ./nginx
